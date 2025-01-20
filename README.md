@@ -64,72 +64,6 @@ python -m vllm.entrypoints.openai.api_server --served-model-name ui-tars --model
 ```
 
 Then you can use the chat API as below with the gui prompt (choose from mobile or computer) and base64-encoded local images (see [OpenAI API protocol document](https://platform.openai.com/docs/guides/vision/uploading-base-64-encoded-images) for more details):
-
-- Prompt template for mobile:
-```python
-## Below is the prompt for mobile
-prompt = r"""<|im_start|>system
-You are a helpful assistant.<|im_end|>
-<|im_start|>user
-You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
-
-## Output Format
-```\nAction_Summary: ...
-Action: ...\n```
-
-## Action Space
-click(start_box='<|box_start|>(x1,y1)<|box_end|>')
-long_press(start_box='<|box_start|>(x1,y1)<|box_end|>', time='')
-type(content='')
-scroll(direction='down or up or right or left')
-open_app(app_name='')
-navigate_back()
-navigate_home()
-WAIT()
-finished() # Submit the task regardless of whether it succeeds or fails.
-
-## Note
-- Use English in `Action_Summary` part.
-
-## User Instruction
-"""
-
-- Prompt template for computer:
-```python
-## Below is the prompt for computer
-prompt = r"""<|im_start|>system
-You are a helpful assistant.<|im_end|>
-<|im_start|>user
-You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
-
-## Output Format
-```\nThought: ...
-Action: ...\n```
-
-## Action Space
-
-click(start_box='<|box_start|>(x1,y1)<|box_end|>')
-left_double(start_box='<|box_start|>(x1,y1)<|box_end|>')
-right_single(start_box='<|box_start|>(x1,y1)<|box_end|>')
-drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
-hotkey(key='')
-type(content='') #If you want to submit your input, use \"\
-\" at the end of `content`.
-scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
-wait() #Sleep for 5s and take a screenshot to check for any changes.
-finished()
-call_user() # Submit the task and call the user when the task is unsolvable, or when you need the user's help.
-
-
-## Note
-- Use Chinese in `Thought` part.
-- Summarize your next action (with its target element) in one sentence in `Thought` part.
-
-## User Instruction
-"""
-```
-
-- Inference codes:
 ```python
 import base64
 from openai import OpenAI
@@ -186,9 +120,76 @@ response = client.chat.completions.create(
     max_tokens=128,
 )
 print(response.choices[0].message.content)
-
-
 ```
+
+### Prompt Templates
+We provide two prompt templates currently for stable running and performance, one for mobile scene and one for personal computer scene.
+- Prompt template for mobile:
+```python
+## Below is the prompt for mobile
+prompt = r"""<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+
+## Output Format
+```\nAction_Summary: ...
+Action: ...\n```
+
+## Action Space
+click(start_box='<|box_start|>(x1,y1)<|box_end|>')
+long_press(start_box='<|box_start|>(x1,y1)<|box_end|>', time='')
+type(content='')
+scroll(direction='down or up or right or left')
+open_app(app_name='')
+navigate_back()
+navigate_home()
+WAIT()
+finished() # Submit the task regardless of whether it succeeds or fails.
+
+## Note
+- Use English in `Action_Summary` part.
+
+## User Instruction
+"""
+```
+
+- Prompt template for computer:
+```python
+## Below is the prompt for computer
+prompt = r"""<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+
+## Output Format
+```\nThought: ...
+Action: ...\n```
+
+## Action Space
+
+click(start_box='<|box_start|>(x1,y1)<|box_end|>')
+left_double(start_box='<|box_start|>(x1,y1)<|box_end|>')
+right_single(start_box='<|box_start|>(x1,y1)<|box_end|>')
+drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+hotkey(key='')
+type(content='') #If you want to submit your input, use \"\
+\" at the end of `content`.
+scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
+wait() #Sleep for 5s and take a screenshot to check for any changes.
+finished()
+call_user() # Submit the task and call the user when the task is unsolvable, or when you need the user's help.
+
+
+## Note
+- Use Chinese in `Thought` part.
+- Summarize your next action (with its target element) in one sentence in `Thought` part.
+
+## User Instruction
+"""
+```
+
+
 ### Local Deployment [Ollama]
 Ollama can deploy the model via gguf format. Bugs exist for safetensors.
 
@@ -231,7 +232,6 @@ response = client.chat.completions.create(
 )
 
 ```
-
 
 ## License
 UI-TARS is licensed under the Apache License 2.0.
