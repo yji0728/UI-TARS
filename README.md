@@ -35,7 +35,9 @@ UI-TARS is a next-generation native GUI agent model designed to interact seamles
 - **Task-Level Metrics**: Complete match and partial match scores for overall task success.
 - **Other Metrics**: Measures for execution efficiency, safety, robustness, and adaptability.
 
-## Cloud Deployment
+## Deployment
+
+### Cloud Deployment
 We recommend using HuggingFace Inference Endpoints for fast deployment.
 We provide two docs for users to refer:
 
@@ -44,7 +46,7 @@ English version: [GUI Model Deployment Guide](https://juniper-switch-f10.notion.
 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb)
 
 
-## Local Deployment
+### Local Deployment [vLLM]
 We recommend using vLLM for fast deployment and inference. You need to use `vllm>=0.6.1`.
 ```bash
 pip install -U transformers
@@ -53,7 +55,7 @@ CUDA_VERSION=cu124
 pip install vllm==${VLLM_VERSION} --extra-index-url https://download.pytorch.org/whl/${CUDA_VERSION}
 
 ```
-### Start an OpenAI API Service
+#### Start an OpenAI API Service
 
 Run the command below to start an OpenAI-compatible API service:
 
@@ -123,6 +125,49 @@ print(response.choices[0].message.content)
 
 
 ```
+### Local Deployment [Ollama]
+Ollama can deploy the model via gguf format. Bugs exist for safetensors.
+
+#### Convert from safetensors to gguf
+We convert the model into gguf format by using the script from [llama.cpp](https://github.com/ggerganov/llama.cpp/blob/master/convert_hf_to_gguf.py):
+
+```bash
+python3 convert_hf_to_gguf.py <path to your model>
+```
+
+The gguf file will be generated under the path provided.
+
+#### Deploy gguf model
+We deploy the model by following Ollama [tutorial](https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model).
+
+```bash
+# Create Modelfile, Windows users can just create a file named Modelfile
+echo "FROM ./path/to/model.gguf" > Modelfile
+
+# Create model in Ollama
+ollama create ui-tars -f Modelfile
+
+# Run the model
+ollama run ui-tars
+
+```
+
+Test script is same as vLLM except two changes:
+
+```python
+...
+client = OpenAI(
+    base_url="http://127.0.0.1:11434/v1/",
+    ...
+)
+...
+response = client.chat.completions.create(
+    model="ui-tars" # the name we create via Ollama cli
+    ...
+)
+
+```
+
 
 ## License
 UI-TARS is licensed under the Apache License 2.0.
