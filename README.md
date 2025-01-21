@@ -6,7 +6,8 @@
 ![Local Image](figures/writer.png)
 <p align="center">
         🤗 <a href="https://huggingface.co/bytedance-research/UI-TARS-7B-SFT">Hugging Face Models</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="UI_TARS_paper_preview.pdf">Paper</a> &nbsp&nbsp  |&nbsp&nbsp</a>
-🖥️ <a href="https://github.com/bytedance/UI-TARS-desktop">UI-TARS-desktop</a>&nbsp&nbsp | &nbsp&nbsp🫨 <a href="https://discord.gg/txAE43ps">Discord</a>&nbsp&nbsp
+🖥️ <a href="https://github.com/bytedance/UI-TARS-desktop">UI-TARS-desktop</a>&nbsp&nbsp|&nbsp&nbsp</a>
+🏄 <a href="https://github.com/web-infra-dev/Midscene">Midscene (Browser Automation) </a>&nbsp&nbsp | &nbsp&nbsp🫨 <a href="https://discord.gg/txAE43ps">Discord</a>&nbsp&nbsp
 </p>
 
 We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). To use UI-TARS in web automation, you may refer to the open-source project [Midscene.js](https://github.com/web-infra-dev/Midscene).
