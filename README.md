@@ -28,9 +28,11 @@ UI-TARS is a next-generation native GUI agent model designed to interact seamles
 - **Learning from Synthetic and Real Data**: Combines large-scale annotated and synthetic datasets for improved generalization and robustness.
 
 ## Training Pipeline
-1. **Pre-Training**: Leveraging large-scale GUI-specific datasets for foundational learning.
-2. **Supervised Fine-Tuning**: Fine-tuning on human-annotated and synthetic multi-step task data.
-3. **Continual Learning**: Employing online trace bootstrapping and reinforcement learning for continual improvement.
+We use the Qwen-2-VL backbone and a three-phase training process with **50B** tokens to enhance performance on complex GUI tasks.
+
+- **Continual Pre-training Phase**: Pre-train the model on a large dataset to learn foundational GUI interaction skills.
+- **Annealing Phase**: Fine-tune the model with high-quality data to optimize learning for real-world GUI tasks.
+- **DPO Phase**: Use annotated reflective pairs to refine decision-making and improve context-aware actions.
 
 ## Evaluation Metrics
 - **Step-Level Metrics**: Element accuracy, operation F1 score, and step success rate.
@@ -283,7 +285,7 @@ You are a helpful assistant.<|im_end|>
 You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
 
 ## Output Format
-```\nAction_Summary: ...
+```\nThought: ...
 Action: ...\n```
 
 ## Action Space
@@ -343,16 +345,22 @@ call_user() # Submit the task and call the user when the task is unsolvable, or 
 ### Local Deployment [Ollama]
 Ollama can deploy the model via gguf format. Bugs exist for safetensors.
 
-#### Convert from safetensors to gguf
-We convert the model into gguf format by using the script from [llama.cpp](https://github.com/ggerganov/llama.cpp/blob/master/convert_hf_to_gguf.py):
+#### Get the model in GGUF format
+We provide 2B and 7B model in [GGUF](https://huggingface.co/docs/hub/en/gguf) format:
+
+2B: https://huggingface.co/bytedance-research/UI-TARS-2B-gguf
+
+7B: https://huggingface.co/bytedance-research/UI-TARS-7B-gguf
+
+Users can convert the model into GGUF format by using the script from [llama.cpp](https://github.com/ggerganov/llama.cpp/blob/master/convert_hf_to_gguf.py):
 
 ```bash
 python3 convert_hf_to_gguf.py <path to your model>
 ```
 
-The gguf file will be generated under the path provided.
+The GGUF file will be generated under the path provided.
 
-#### Deploy gguf model
+#### Deploy GGUF model
 We deploy the model by following Ollama [tutorial](https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model).
 
 ```bash
