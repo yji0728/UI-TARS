@@ -396,3 +396,15 @@ UI-TARS is licensed under the Apache License 2.0.
 This project builds upon and extends the capabilities of Qwen-2-VL, a powerful vision-language model, which serves as the foundational architecture for UI-TARS. We would like to acknowledge the contributions of the developers and researchers behind Qwen-2-VL for their groundbreaking work in the field of multimodal AI and for providing a robust base for further advancements.
 
 Additionally, we thank the broader open-source community for their datasets, tools, and insights that have facilitated the development of UI-TARS. These collaborative efforts continue to push the boundaries of what GUI automation and AI-driven agents can achieve.
+
+## Citation
+If you find our paper and code useful in your research, please consider giving a star :star: and citation :pencil:
+
+```BibTeX
+@article{uitars2025,
+  author    = {Yujia Qin, Yining Ye, Junjie Fang, Haoming Wang, Shihao Liang, Shizuo Tian, Junda Zhang, Jiahao Li, Yunxin Li, Shijue Huang, Wanjun Zhong, Kuanye Li, Jiale Yang, Yu Miao, Woyu Lin, Longxiang Liu, Xu Jiang, Qianli Ma, Jingyu Li, Xiaojun Xiao, Kai Cai, Chuang Li, Yaowei Zheng, Xin Jin, Chen Li, Xiao Zhou, Minchao Wang, Haoli Chen, Zhaojian Li, Haihua Yang, Haifeng Liu, Feng Lin, Tao Peng, Xin Liu, Guang Shi},
+  title     = {UI-TARS: An End-to-End Framework for Autonomous GUI Agents with System-2 Reasoning and Iterative Reflection Tuning},
+  url       = {https://github.com/bytedance/UI-TARS},
+  year      = {2025}
+}
+```
