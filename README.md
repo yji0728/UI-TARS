@@ -9,7 +9,8 @@
 🖥️ <a href="https://github.com/bytedance/UI-TARS-desktop">UI-TARS-desktop</a>&nbsp&nbsp | &nbsp&nbsp🫨 <a href="https://discord.gg/txAE43ps">Discord</a>&nbsp&nbsp
 </p>
 
-We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop).
+We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). To use ui-tars agent in web automation, you may refer to the open-source project [Midscene.js](https://github.com/web-infra-dev/Midscene).
+
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
 ![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
@@ -340,7 +341,6 @@ call_user() # Submit the task and call the user when the task is unsolvable, or 
 """
 ```
 
-
 ### Local Deployment [Ollama]
 Ollama can deploy the model via gguf format. Bugs exist for safetensors.
 
@@ -389,6 +389,12 @@ response = client.chat.completions.create(
 )
 
 ```
+
+## Use in desktop and browser
+
+To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop).
+
+To use ui-tars agent in web automation, you may refer to the open-source project [Midscene.js](https://github.com/web-infra-dev/Midscene) and set up the UI-TARS model as a custom model. See [this guide](https://midscenejs.com/choose-a-model.html) for more details.
 
 ## License
 UI-TARS is licensed under the Apache License 2.0.
