@@ -13,9 +13,9 @@ We also offer a **UI-TARS-desktop** version, which can operate on your **local p
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
 ![Local Image](figures/UI-TARS.png)
+![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
 
 ## Core Features
-![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
 ### Perception
 - **Comprehensive GUI Understanding**: Processes multimodal inputs (text, images, interactions) to build a coherent understanding of interfaces.
 - **Real-Time Interaction**: Continuously monitors dynamic GUIs and responds accurately to changes in real-time.
@@ -36,13 +36,6 @@ UI-TARS is a next-generation native GUI agent model designed to interact seamles
 - **Cross-Platform Interaction**: Supports desktop, mobile, and web environments with a unified action framework.
 - **Multi-Step Task Execution**: Trained to handle complex tasks through multi-step trajectories and reasoning.
 - **Learning from Synthetic and Real Data**: Combines large-scale annotated and synthetic datasets for improved generalization and robustness.
-
-## Training Pipeline
-We use the Qwen-2-VL backbone and a three-phase training process with **50B** tokens to enhance performance on complex GUI tasks.
-
-- **Continual Pre-training Phase**: Pre-train the model on a large dataset to learn foundational GUI interaction skills.
-- **Annealing Phase**: Fine-tune the model with high-quality data to optimize learning for real-world GUI tasks.
-- **DPO Phase**: Use annotated reflective pairs to refine decision-making and improve context-aware actions.
 
 ## Performance
 **Perception Capabilty Evaluation**
