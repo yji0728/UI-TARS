@@ -1,6 +1,7 @@
 <p align="center">
   <img alt="UI-TARS"  width="260" src="figures/icon.png">
 </p>
+
 # UI-TARS: Pioneering Automated GUI Interaction with Native Agents
 
 <p align="center">
