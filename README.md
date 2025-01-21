@@ -1,9 +1,9 @@
-<p align="center">
+<!-- <p align="center">
   <img alt="UI-TARS"  width="260" src="figures/icon.png">
 </p>
 
-# UI-TARS: Pioneering Automated GUI Interaction with Native Agents
-
+# UI-TARS: Pioneering Automated GUI Interaction with Native Agents -->
+![Local Image](figures/writer.png)
 <p align="center">
         🤗 <a href="https://huggingface.co/bytedance-research/UI-TARS-7B-SFT">Hugging Face Models</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="UI_TARS_paper.pdf">Paper</a> &nbsp&nbsp  |&nbsp&nbsp</a>
 🖥️ <a href="https://github.com/bytedance/UI-TARS-desktop">UI-TARS-desktop</a>&nbsp&nbsp | &nbsp&nbsp🫨 <a href="https://discord.gg/txAE43ps">Discord</a>&nbsp&nbsp
@@ -12,8 +12,9 @@
 We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop).
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
-![Local Image](figures/UI-TARS.png)
 ![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
+![Local Image](figures/UI-TARS.png)
+
 
 ## Core Features
 ### Perception
