@@ -1,11 +1,17 @@
 # UI-TARS: Pioneering Automated GUI Interaction with Native Agents
 
+<p align="center">
+        🤗 <a href="https://huggingface.co/bytedance-research/UI-TARS-7B-SFT">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp 📑 <a href="https://arxiv.org/">Paper</a> &nbsp&nbsp  |&nbsp&nbsp</a>
+🖥️ <a href="https://github.com/bytedance/UI-TARS-desktop">UI-TARS-desktop</a>&nbsp&nbsp | &nbsp&nbsp🫨 <a href="https://discord.gg/txAE43ps">Discord</a>&nbsp&nbsp
+</p>
+
+We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop).
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
-![Local Image](UI-TARS.png)
+![Local Image](figures/UI-TARS.png)
 
 ## Core Features
-![Local Image](UI-TARS-vs-Previous-SOTA.png)
+![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
 ### Perception
 - **Comprehensive GUI Understanding**: Processes multimodal inputs (text, images, interactions) to build a coherent understanding of interfaces.
 - **Real-Time Interaction**: Continuously monitors dynamic GUIs and responds accurately to changes in real-time.
@@ -34,11 +40,6 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 - **Annealing Phase**: Fine-tune the model with high-quality data to optimize learning for real-world GUI tasks.
 - **DPO Phase**: Use annotated reflective pairs to refine decision-making and improve context-aware actions.
 
-## Evaluation Metrics
-- **Step-Level Metrics**: Element accuracy, operation F1 score, and step success rate.
-- **Task-Level Metrics**: Complete match and partial match scores for overall task success.
-- **Other Metrics**: Measures for execution efficiency, safety, robustness, and adaptability.
-
 ## Performance
 **Perception Capabilty Evaluation**
 | Model                     | VisualWebBench | WebSRC  | SQAshort |
@@ -49,9 +50,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | UIX-Qwen2-7B             | 75.9          | 82.9    | 78.8     |
 | Claude-3.5-Sonnet        | 78.2          | 90.4    | 83.1     |
 | GPT-4o                   | 78.5          | 87.7    | 82.3     |
-| **ourmodel-2B**          | 72.9          | 89.2    | 86.4     |
-| **ourmodel-7B**          | 79.7          | **93.6** | 87.7     |
-| **ourmodel-72B**         | **82.8**      | 89.3    | **88.6** |
+| **UI-TARS-2B**          | 72.9          | 89.2    | 86.4     |
+| **UI-TARS-7B**          | 79.7          | **93.6** | 87.7     |
+| **UI-TARS-72B**         | **82.8**      | 89.3    | **88.6** |
 
 **Grounding Capability Evaluation**
 - **ScreenSpot Pro**
@@ -70,9 +71,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | Claude Computer Use      | 22.0  | 3.9   | 12.6  | 25.9  | 3.4   | 16.8  | 14.5  | 3.7   | 11.9  | 33.9  | 15.8  | 25.8  | 30.1  | 16.3  | 26.9  | 11.0  | 4.5   | 8.1   | 23.4  | 7.1  | **17.1**  |
 | OS-Atlas-7B              | 33.1  | 1.4   | 17.7  | 28.8  | 2.8   | 17.9  | 12.2  | 4.7   | 10.3  | 37.5  | 7.3   | 24.4  | 33.9  | 5.7   | 27.4  | 27.1  | 4.5   | 16.8  | 28.1  | 4.0  | **18.9**  |
 | UGround-V1-7B            | -     | -     | 35.5  | -     | -     | 27.8  | -     | -     | 13.5  | -     | -     | 38.8  | -     | -     | 48.8  | -     | -     | 26.1  | -     | -    | **31.1**  |
-| **ourmodel-2B**        | 47.4     | 4.1      | 26.4     | 42.9         | 6.3          | 27.6         | 17.8    | 4.7     | 14.6    | 56.9          | 17.3          | 39.8          | 50.3       | 17.0       | 42.6       | 21.5   | 5.6    | 14.3   | 39.6    | 8.4     | **27.7**  |
-| **ourmodel-7B**        | 58.4     | 12.4     | 36.1     | 50.0         | 9.1          | 32.8         | **20.8**| 9.4     | **18.0**| 63.9          | **31.8**      | **50.0**      | **63.3**   | 20.8       | 53.5       | 30.8   | **16.9**| 24.5   | 47.8    | 16.2    | **35.7**  |
-| **ourmodel-72B**       | **63.0** | **17.3** | **40.8** | **57.1**     | **15.4**     | **39.6**     | 18.8    | **12.5**| 17.2    | **64.6**      | 20.9          | 45.7          | **63.3**   | **26.4**   | **54.8**   | **42.1**| 15.7    | **30.1**| **50.9**| **17.5**| **38.1**  |
+| **UI-TARS-2B**        | 47.4     | 4.1      | 26.4     | 42.9         | 6.3          | 27.6         | 17.8    | 4.7     | 14.6    | 56.9          | 17.3          | 39.8          | 50.3       | 17.0       | 42.6       | 21.5   | 5.6    | 14.3   | 39.6    | 8.4     | **27.7**  |
+| **UI-TARS-7B**        | 58.4     | 12.4     | 36.1     | 50.0         | 9.1          | 32.8         | **20.8**| 9.4     | **18.0**| 63.9          | **31.8**      | **50.0**      | **63.3**   | 20.8       | 53.5       | 30.8   | **16.9**| 24.5   | 47.8    | 16.2    | **35.7**  |
+| **UI-TARS-72B**       | **63.0** | **17.3** | **40.8** | **57.1**     | **15.4**     | **39.6**     | 18.8    | **12.5**| 17.2    | **64.6**      | 20.9          | 45.7          | **63.3**   | **26.4**   | **54.8**   | **42.1**| 15.7    | **30.1**| **50.9**| **17.5**| **38.1**  |
 
 
 - **ScreenSpot**
@@ -99,9 +100,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | Aguvis-7B | | **95.6** | 77.7 | 93.8 | 67.1 | 88.3 | 75.2 | **84.4** |
 | Aguvis-72B | | 94.5 | **85.2** | 95.4 | 77.9 | **91.3** | **85.9** | **89.2** |
 | **Our Model** | | | | | | | | |
-| **OurModel-2B** | | 93.0 | 75.5 | 90.7 | 68.6 | 84.3 | 74.8 | **82.3** |
-| **OurModel-7B** | | 94.5 | **85.2** | **95.9** | 85.7 | 90.0 | 83.5 | **89.5** |
-| **OurModel-72B** | | 94.9 | 82.5 | 89.7 | **88.6** | 88.7 | 85.0 | **88.4** |
+| **UI-TARS-2B** | | 93.0 | 75.5 | 90.7 | 68.6 | 84.3 | 74.8 | **82.3** |
+| **UI-TARS-7B** | | 94.5 | **85.2** | **95.9** | 85.7 | 90.0 | 83.5 | **89.5** |
+| **UI-TARS-72B** | | 94.9 | 82.5 | 89.7 | **88.6** | 88.7 | 85.0 | **88.4** |
 
 
 - **ScreenSpot v2**
@@ -117,9 +118,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | OS-Atlas-4B | | 87.2 | 59.7 | 72.7 | 46.4 | 85.9 | 63.1 | **71.9** |
 | OS-Atlas-7B | | 95.2 | 75.8 | 90.7 | 63.6 | 90.6 | 77.3 | **84.1** |
 | **Our Model** | | | | | | | | |
-| **OurModel-2B** | | 95.2 | 79.1 | 90.7 | 68.6 | 87.2 | 78.3 | **84.7** |
-| **OurModel-7B** | | **96.9** | **89.1** | **95.4** | 85.0 | 93.6 | 85.2 | **91.6** |
-| **OurModel-72B** | | 94.8 | 86.3 | 91.2 | **87.9** | 91.5 | **87.7** | **90.3** |
+| **UI-TARS-2B** | | 95.2 | 79.1 | 90.7 | 68.6 | 87.2 | 78.3 | **84.7** |
+| **UI-TARS-7B** | | **96.9** | **89.1** | **95.4** | 85.0 | 93.6 | 85.2 | **91.6** |
+| **UI-TARS-72B** | | 94.8 | 86.3 | 91.2 | **87.9** | 91.5 | **87.7** | **90.3** |
 
 
 **Offline Agent Capability Evaluation**
@@ -142,9 +143,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | CogAgent | | - | - | 62.3 | - | - | 54.0 | - | - | 59.4 |
 | Aguvis-72B | | 69.5 | 90.8 | 64.0 | 62.6 | 88.6 | 56.5 | 63.5 | 88.5 | 58.2 |
 | **Our Model** | | | | | | | | | | |
-| **OurModel-2B** | | 62.3 | 90.0 | 56.3 | 58.5 | 87.2 | 50.8 | 58.8 | 89.6 | 52.3 |
-| **OurModel-7B** | | 73.1 | 92.2 | 67.1 | 68.2 | 90.9 | 61.7 | 66.6 | 90.9 | 60.5 |
-| **OurModel-72B** | | **74.7** | **92.5** | **68.6** | **72.4** | **91.2** | **63.5** | **68.9** | **91.8** | **62.1** |
+| **UI-TARS-2B** | | 62.3 | 90.0 | 56.3 | 58.5 | 87.2 | 50.8 | 58.8 | 89.6 | 52.3 |
+| **UI-TARS-7B** | | 73.1 | 92.2 | 67.1 | 68.2 | 90.9 | 61.7 | 66.6 | 90.9 | 60.5 |
+| **UI-TARS-72B** | | **74.7** | **92.5** | **68.6** | **72.4** | **91.2** | **63.5** | **68.9** | **91.8** | **62.1** |
 
 
 - **Android Control and GUI Odyssey**
@@ -161,9 +162,9 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | OS-Atlas-7B       | 93.6                 | 88.0                 | 85.2           | 85.2                 | 78.5                 | 71.2           | 84.5           | 67.8           | 62.0           |
 | Aguvis-7B         | --                   | --                   | 80.5           | --                   | --                   | 61.5           | --             | --             | --             |
 | Aguvis-72B        | --                   | --                   | 84.4           | --                   | --                   | 66.4           | --             | --             | --             |
-| **OurModel-2B**   | **98.1**             | 87.3                 | 89.3           | 81.2                 | 78.4                 | 68.9           | 93.9           | 86.8           | 83.4           |
-| **OurModel-7B**   | 98.0                 | 89.3                 | 90.8           | 83.7                 | 80.5                 | 72.5           | 94.6           | 90.1           | 87.0           |
-| **OurModel-72B**  | **98.1**             | **89.9**             | **91.3**       | **85.2**             | **81.5**             | **74.7**       | **95.4**       | **91.4**       | **88.6**       |
+| **UI-TARS-2B**   | **98.1**             | 87.3                 | 89.3           | 81.2                 | 78.4                 | 68.9           | 93.9           | 86.8           | 83.4           |
+| **UI-TARS-7B**   | 98.0                 | 89.3                 | 90.8           | 83.7                 | 80.5                 | 72.5           | 94.6           | 90.1           | 87.0           |
+| **UI-TARS-72B**  | **98.1**             | **89.9**             | **91.3**       | **85.2**             | **81.5**             | **74.7**       | **95.4**       | **91.4**       | **88.6**       |
 
 **Online Agent Capability Evaluation**
 
@@ -182,10 +183,10 @@ We use the Qwen-2-VL backbone and a three-phase training process with **50B** to
 | Claude Computer-Use | | 14.9 (15 steps) | 27.9 |
 | Claude Computer-Use | | 22.0 (50 steps) | - |
 | **Our Model** | | | |
-| **OurModel-7B-SFT** | | 17.7 (15 steps) | 33.0 |
-| **OurModel-7B-DPO** | | 18.7 (15 steps) | - |
-| **OurModel-72B-SFT** | | 18.8 (15 steps) | **46.6** |
-| **OurModel-72B-DPO** | | **22.7** (15 steps) | - |
+| **UI-TARS-7B-SFT** | | 17.7 (15 steps) | 33.0 |
+| **UI-TARS-7B-DPO** | | 18.7 (15 steps) | - |
+| **UI-TARS-72B-SFT** | | 18.8 (15 steps) | **46.6** |
+| **UI-TARS-72B-DPO** | | **22.7** (15 steps) | - |
 
 ## Deployment
 
