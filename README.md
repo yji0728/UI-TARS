@@ -197,6 +197,8 @@ English version: [GUI Model Deployment Guide](https://juniper-switch-f10.notion.
 
 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb)
 
+### Local Deployment [Transformers]
+We follow the same way as Qwen2-VL, check this [tutorial](https://github.com/QwenLM/Qwen2-VL?tab=readme-ov-file#using---transformers-to-chat) for more details.
 
 ### Local Deployment [vLLM]
 We recommend using vLLM for fast deployment and inference. You need to use `vllm>=0.6.1`.
@@ -389,6 +391,15 @@ response = client.chat.completions.create(
 )
 
 ```
+
+### Explanation of Inference Results
+
+#### Coordinate Mapping
+The model generates a 2D coordinate output that represents relative positions. To convert these values to image-relative coordinates, divide each component by 1000 to obtain values in the range [0,1]. The absolute coordinates required by the Action can be calculated by: 
+- X absolute = X relative × image width
+- Y absolute = Y relative × image height
+
+For example, given a screen size: 1920 × 1080, and the model generates a coordinate output of (235, 512). The X absolute is `round(1920*235/1000)=451`. The Y absolute is `round(1080*512/1000)=553`. The absolute coordinate is (451, 553)
 
 ## Use in desktop and web automation
 
