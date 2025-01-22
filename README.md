@@ -391,13 +391,14 @@ response = client.chat.completions.create(
 
 ```
 
-## Use in desktop and browser
+## Use in desktop and web automation
 
 To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop).
 
-To use ui-tars agent in web automation, you may refer to the open-source project [Midscene.js](https://github.com/web-infra-dev/Midscene) and set up the UI-TARS model as a custom model. See [this guide](https://midscenejs.com/choose-a-model.html) for more details.
+[Midscene.js](https://github.com/web-infra-dev/Midscene) is an open-source web automation SDK that has supported UI-TARS model. Developers can use javascript and natural language to control the browser. See [this guide](https://midscenejs.com/choose-a-model) for more details about setting up the model.
 
 ## License
+
 UI-TARS is licensed under the Apache License 2.0.
 
 ## Acknowledgements
