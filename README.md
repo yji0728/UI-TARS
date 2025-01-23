@@ -242,22 +242,27 @@ client = OpenAI(
 prompt = r"""You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
 
 ## Output Format
-```\nAction_Summary: ...
+```\nThought: ...
 Action: ...\n```
 
 ## Action Space
+
 click(start_box='<|box_start|>(x1,y1)<|box_end|>')
-long_press(start_box='<|box_start|>(x1,y1)<|box_end|>', time='')
-type(content='')
-scroll(direction='down or up or right or left')
-open_app(app_name='')
-navigate_back()
-navigate_home()
-WAIT()
-finished() # Submit the task regardless of whether it succeeds or fails.
+left_double(start_box='<|box_start|>(x1,y1)<|box_end|>')
+right_single(start_box='<|box_start|>(x1,y1)<|box_end|>')
+drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+hotkey(key='')
+type(content='') #If you want to submit your input, use \"\
+\" at the end of `content`.
+scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
+wait() #Sleep for 5s and take a screenshot to check for any changes.
+finished()
+call_user() # Submit the task and call the user when the task is unsolvable, or when you need the user's help.
+
 
 ## Note
-- Use English in `Action_Summary` part.
+- Use Chinese in `Thought` part.
+- Summarize your next action (with its target element) in one sentence in `Thought` part.
 
 ## User Instruction
 """
@@ -272,6 +277,41 @@ response = client.chat.completions.create(
             "content": [
                 {"type": "text", "text": prompt + instruction},
                 {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{encoded_string}"}},
+            ],
+        },
+    ],
+    frequency_penalty=1,
+    max_tokens=128,
+)
+print(response.choices[0].message.content)
+```
+
+For single step grounding task or inference on grounding dataset such as Seeclick, kindly refer to the following script:
+```python
+import base64
+from openai import OpenAI
+
+
+instruction = "search for today's weather"
+screenshot_path = "screenshot.png"
+client = OpenAI(
+    base_url="http://127.0.0.1:8000/v1",
+    api_key="empty",
+)
+
+## Below is the prompt for mobile
+prompt = r"""Output only the coordinate of one point in your response. What element matches the following task: """
+
+with open(screenshot_path, "rb") as image_file:
+    encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
+response = client.chat.completions.create(
+    model="ui-tars",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{encoded_string}"}},
+                {"type": "text", "text": prompt + instruction}
             ],
         },
     ],
@@ -296,15 +336,15 @@ Action: ...\n```
 click(start_box='<|box_start|>(x1,y1)<|box_end|>')
 long_press(start_box='<|box_start|>(x1,y1)<|box_end|>', time='')
 type(content='')
-scroll(direction='down or up or right or left')
-open_app(app_name='')
-navigate_back()
-navigate_home()
-WAIT()
-finished() # Submit the task regardless of whether it succeeds or fails.
+scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+press_home()
+press_back()
+finished(content='') # Submit the task regardless of whether it succeeds or fails.
 
 ## Note
-- Use English in `Action_Summary` part.
+- Use English in `Thought` part.
+
+- Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
 
 ## User Instruction
 """
