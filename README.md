@@ -395,7 +395,7 @@ For example, given a screen size: 1920 × 1080, and the model generates a coordi
 
 ## Use in desktop and web automation
 
-To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). We recommend using the 7B/72B DPO model on desktop.
+To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). We recommend using the **7B/72B DPO model** on desktop.
 
 [Midscene.js](https://github.com/web-infra-dev/Midscene) is an open-source web automation SDK that has supported UI-TARS model. Developers can use javascript and natural language to control the browser. See [this guide](https://midscenejs.com/choose-a-model) for more details about setting up the model.
 
