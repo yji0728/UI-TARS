@@ -15,7 +15,7 @@ We also offer a **UI-TARS-desktop** version, which can operate on your **local p
 The **GGUF model** has undergone quantization, but unfortunately, its performance cannot be guaranteed. As a result, we have decided to **downgrade** it. 
 
 💡 **Alternative Solution**:  
-You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vLLM]](#local-deployment-vllm)** instead. 
+You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vLLM]](#local-deployment-vllm)**(If you have enough GPU resources) instead. 
 
 We appreciate your understanding and patience as we work to ensure the best possible experience.
 ## Overview
@@ -218,7 +218,7 @@ pip install vllm==${VLLM_VERSION} --extra-index-url https://download.pytorch.org
 
 ```
 #### Download the Model
-We provide three model sizes on Hugging Face: **2B**, **7B**, and **72B**. To achieve the best performance, we recommend using the **7B-DPO** or **72B-DPO** model (based on your hardware configuration):
+We provide three model sizes on Hugging Face: **2B**, **7B**, and **72B**. To achieve the best performance, we recommend using the **7B-DPO** or **72B-DPO** model (depends on your GPU configuration):
 
 - [2B-SFT](https://huggingface.co/bytedance-research/UI-TARS-2B-SFT)
 - [7B-SFT](https://huggingface.co/bytedance-research/UI-TARS-7B-SFT)
