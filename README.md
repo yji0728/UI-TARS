@@ -10,7 +10,14 @@
 </p>
 
 We also offer a **UI-TARS-desktop** version, which can operate on your **local personal device**. To use it, please visit [https://github.com/bytedance/UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). To use UI-TARS in web automation, you may refer to the open-source project [Midscene.js](https://github.com/web-infra-dev/Midscene).
+### ⚠️ Important Announcement: GGUF Model Performance
 
+The **GGUF model** has undergone quantization, but unfortunately, its performance cannot be guaranteed. As a result, we have decided to **downgrade** it. 
+
+💡 **Alternative Solution**:  
+You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vLLM]](#local-deployment-vllm)** instead. 
+
+We appreciate your understanding and patience as we work to ensure the best possible experience.
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
 ![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
@@ -218,7 +225,7 @@ Run the command below to start an OpenAI-compatible API service:
 python -m vllm.entrypoints.openai.api_server --served-model-name ui-tars --model <path to your model>
 ```
 
-Then you can use the chat API as below with the gui prompt (choose from mobile or computer) and base64-encoded local images (see [OpenAI API protocol document](https://platform.openai.com/docs/guides/vision/uploading-base-64-encoded-images) for more details):
+Then you can use the chat API as below with the gui prompt (choose from mobile or computer) and base64-encoded local images (see [OpenAI API protocol document](https://platform.openai.com/docs/guides/vision/uploading-base-64-encoded-images) for more details), you can also use it in [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop):
 ```python
 import base64
 from openai import OpenAI
@@ -336,9 +343,8 @@ call_user() # Submit the task and call the user when the task is unsolvable, or 
 ```
 
 ### Local Deployment [Ollama]
-Ollama can deploy the model via gguf format. Bugs exist for safetensors.
-
-#### Get the model in GGUF format
+<!-- Ollama can deploy the model via gguf format. Bugs exist for safetensors. -->Ollama will be coming soon. Please be patient and wait~ 😊
+<!-- #### Get the model in GGUF format
 We provide 2B and 7B model in [GGUF](https://huggingface.co/docs/hub/en/gguf) format:
 
 2B: https://huggingface.co/bytedance-research/UI-TARS-2B-gguf
@@ -382,7 +388,7 @@ response = client.chat.completions.create(
     ...
 )
 
-```
+``` -->
 
 ### Explanation of Inference Results
 
