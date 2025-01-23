@@ -217,8 +217,17 @@ CUDA_VERSION=cu124
 pip install vllm==${VLLM_VERSION} --extra-index-url https://download.pytorch.org/whl/${CUDA_VERSION}
 
 ```
-#### Start an OpenAI API Service
+#### Download the Model
+We provide three model sizes on Hugging Face: **2B**, **7B**, and **72B**. To achieve the best performance, we recommend using the **7B-DPO** or **72B-DPO** model (based on your hardware configuration):
 
+- [2B-SFT](https://huggingface.co/bytedance-research/UI-TARS-2B-SFT)
+- [7B-SFT](https://huggingface.co/bytedance-research/UI-TARS-7B-SFT)
+- [7B-DPO](https://huggingface.co/bytedance-research/UI-TARS-7B-DPO)
+- [72B-SFT](https://huggingface.co/bytedance-research/UI-TARS-72B-SFT)
+- [72B-DPO](https://huggingface.co/bytedance-research/UI-TARS-72B-DPO)
+
+
+#### Start an OpenAI API Service
 Run the command below to start an OpenAI-compatible API service:
 
 ```bash
