@@ -274,6 +274,41 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
+For single step grounding task or inference on grounding dataset such as Seeclick, kindly refer to the following script:
+```python
+import base64
+from openai import OpenAI
+
+
+instruction = "search for today's weather"
+screenshot_path = "screenshot.png"
+client = OpenAI(
+    base_url="http://127.0.0.1:8000/v1",
+    api_key="empty",
+)
+
+## Below is the prompt for mobile
+prompt = r"""Output only the coordinate of one point in your response. What element matches the following task: """
+
+with open(screenshot_path, "rb") as image_file:
+    encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
+response = client.chat.completions.create(
+    model="ui-tars",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{encoded_string}"}},
+                {"type": "text", "text": prompt + instruction}
+            ],
+        },
+    ],
+    frequency_penalty=1,
+    max_tokens=128,
+)
+print(response.choices[0].message.content)
+```
+
 ### Prompt Templates
 We provide two prompt templates currently for stable running and performance, one for mobile scene and one for personal computer scene.
 - Prompt template for mobile:
