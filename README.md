@@ -231,10 +231,7 @@ client = OpenAI(
 )
 
 ## Below is the prompt for mobile
-prompt = r"""<|im_start|>system
-You are a helpful assistant.<|im_end|>
-<|im_start|>user
-You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+prompt = r"""You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
 
 ## Output Format
 ```\nAction_Summary: ...
@@ -281,10 +278,7 @@ We provide two prompt templates currently for stable running and performance, on
 - Prompt template for mobile:
 ```python
 ## Below is the prompt for mobile
-prompt = r"""<|im_start|>system
-You are a helpful assistant.<|im_end|>
-<|im_start|>user
-You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+prompt = r"""You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
 
 ## Output Format
 ```\nThought: ...
@@ -311,10 +305,7 @@ finished() # Submit the task regardless of whether it succeeds or fails.
 - Prompt template for computer:
 ```python
 ## Below is the prompt for computer
-prompt = r"""<|im_start|>system
-You are a helpful assistant.<|im_end|>
-<|im_start|>user
-You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+prompt = r"""You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
 
 ## Output Format
 ```\nThought: ...
