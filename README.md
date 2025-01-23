@@ -186,6 +186,7 @@ UI-TARS is a next-generation native GUI agent model designed to interact seamles
 | **UI-TARS-7B-DPO**  | 18.7 (15 steps) | - |
 | **UI-TARS-72B-SFT**  | 18.8 (15 steps) | **46.6** |
 | **UI-TARS-72B-DPO**  | **22.7** (15 steps) | - |
+| **UI-TARS-72B-DPO**  | **24.6** (50 steps) | - |
 
 ## Deployment
 
