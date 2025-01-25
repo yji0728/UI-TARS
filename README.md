@@ -18,6 +18,13 @@ The **GGUF model** has undergone quantization, but unfortunately, its performanc
 You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vLLM]](#local-deployment-vllm)**(If you have enough GPU resources) instead. 
 
 We appreciate your understanding and patience as we work to ensure the best possible experience.
+
+## Updates
+
+- 🚀 01.25: We updated the **[Cloud Deployment](#cloud-deployment)** section in the 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb) with new information related to the ModelScope platform. You can now use the ModelScope platform for deployment.
+
+
+
 ## Overview
 UI-TARS is a next-generation native GUI agent model designed to interact seamlessly with graphical user interfaces (GUIs) using human-like perception, reasoning, and action capabilities. Unlike traditional modular frameworks, UI-TARS integrates all key components—perception, reasoning, grounding, and memory—within a single vision-language model (VLM), enabling end-to-end task automation without predefined workflows or manual rules.
 ![Local Image](figures/UI-TARS-vs-Previous-SOTA.png)
