@@ -206,14 +206,14 @@ UI-TARS is a next-generation native GUI agent model designed to interact seamles
 
 ### Cloud Deployment
 We recommend using HuggingFace Inference Endpoints for fast deployment.
-We provide two docs for users to refer:
+We provide two docs for reference:
 
 English version: [GUI Model Deployment Guide](https://juniper-switch-f10.notion.site/GUI-Model-Deployment-Guide-17b5350241e280058e98cea60317de71)
 
 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb)
 
 ### Local Deployment [Transformers]
-We follow the same way as Qwen2-VL, check this [tutorial](https://github.com/QwenLM/Qwen2-VL?tab=readme-ov-file#using---transformers-to-chat) for more details.
+We follow the same way as Qwen2-VL. Check this [tutorial](https://github.com/QwenLM/Qwen2-VL?tab=readme-ov-file#using---transformers-to-chat) for more details.
 
 ### Local Deployment [vLLM]
 We recommend using vLLM for fast deployment and inference. You need to use `vllm>=0.6.1`.
@@ -458,7 +458,7 @@ For example, given a screen size: 1920 × 1080, and the model generates a coordi
 
 ## Use in desktop and web automation
 
-To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). We recommend using the **7B/72B DPO model** on desktop.
+To experience UI-TARS agent in desktop, you may refer to [UI-TARS-desktop](https://github.com/bytedance/UI-TARS-desktop). We recommend using the **7B/72B DPO model** on desktop.
 
 [Midscene.js](https://github.com/web-infra-dev/Midscene) is an open-source web automation SDK that has supported UI-TARS model. Developers can use javascript and natural language to control the browser. See [this guide](https://midscenejs.com/choose-a-model) for more details about setting up the model.
 
