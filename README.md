@@ -467,7 +467,7 @@ To experience ui-tars agent in desktop, you may refer to [UI-TARS-desktop](https
 UI-TARS is licensed under the Apache License 2.0.
 
 ## Acknowledgements
-This project builds upon and extends the capabilities of Qwen-2-VL, a powerful vision-language model, which serves as the foundational architecture for UI-TARS. We would like to acknowledge the contributions of the developers and researchers behind Qwen-2-VL for their groundbreaking work in the field of multimodal AI and for providing a robust base for further advancements.
+This project builds upon and extends the capabilities of Qwen2-VL, a powerful vision-language model, which serves as the foundational architecture for UI-TARS. We would like to acknowledge the contributions of the developers and researchers behind Qwen2-VL for their groundbreaking work in the field of multimodal AI and for providing a robust base for further advancements.
 
 Additionally, we thank the broader open-source community for their datasets, tools, and insights that have facilitated the development of UI-TARS. These collaborative efforts continue to push the boundaries of what GUI automation and AI-driven agents can achieve.
 
