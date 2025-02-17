@@ -20,7 +20,7 @@ You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vL
 We appreciate your understanding and patience as we work to ensure the best possible experience.
 
 ## Updates
-- ✨ We updated the OSWorld inference scripts from the original official [OSWorld repository](https://github.com/xlang-ai/OSWorld/blob/main/run_uitars.py). Now, you can use the OSWorld official inference scripts for deployment and we've provided [trajectory examples](https://drive.google.com/file/d/1N9dYzAB9xSiHwE9VSdEi9xSpB9eXfVZT/view?usp=sharing) for OSWorld to help you get started.
+- ✨ We updated the OSWorld inference scripts from the original official [OSWorld repository](https://github.com/xlang-ai/OSWorld/blob/main/run_uitars.py). Now, you can use the OSWorld official inference scripts for deployment and we've provided [trajectory examples](https://drive.google.com/file/d/1N9dYzAB9xSiHwE9VSdEi9xSpB9eXfVZT/view?usp=sharing) for OSWorld to help you get started. We also provide the training example data format in the readme.
 - 🚀 01.25: We updated the **[Cloud Deployment](#cloud-deployment)** section in the 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb) with new information related to the ModelScope platform. You can now use the ModelScope platform for deployment.
 
 
@@ -455,6 +455,9 @@ The model generates a 2D coordinate output that represents relative positions. T
 - Y absolute = Y relative × image height
 
 For example, given a screen size: 1920 × 1080, and the model generates a coordinate output of (235, 512). The X absolute is `round(1920*235/1000)=451`. The Y absolute is `round(1080*512/1000)=553`. The absolute coordinate is (451, 553)
+
+## Training Data Example
+The `training_example.json` is a sample from the Mind2Web training set. We organize the data using a history of 5 (with a maximum of 5 images), and the coordinate information is normalized to the range [0, 1000].
 
 ## Use in desktop and web automation
 
