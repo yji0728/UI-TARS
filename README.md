@@ -20,7 +20,7 @@ You can use **[Cloud Deployment](#cloud-deployment)** or **[Local Deployment [vL
 We appreciate your understanding and patience as we work to ensure the best possible experience.
 
 ## Updates
-
+- ✨ We updated the OSWorld inference scripts from the original official [OSWorld repository](https://github.com/xlang-ai/OSWorld/blob/main/run_uitars.py). Now, you can use the OSWorld official inference scripts for deployment and we've provided [trajectory examples](https://drive.google.com/file/d/1N9dYzAB9xSiHwE9VSdEi9xSpB9eXfVZT/view?usp=sharing) for OSWorld to help you get started.
 - 🚀 01.25: We updated the **[Cloud Deployment](#cloud-deployment)** section in the 中文版: [GUI模型部署教程](https://bytedance.sg.larkoffice.com/docx/TCcudYwyIox5vyxiSDLlgIsTgWf#U94rdCxzBoJMLex38NPlHL21gNb) with new information related to the ModelScope platform. You can now use the ModelScope platform for deployment.
 
 
