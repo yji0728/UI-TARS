@@ -53,7 +53,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 **Grounding Capability Evaluation**
 | Benchmark | UI-TARS-1.5 | OpenAI CUA | Claude 3.7 | Previous SOTA |
 |-----------|-------------|------------|------------|----------------|
-| [ScreensSpot-V2](https://arxiv.org/pdf/2410.23218) | **94.2** | 87.9 | 87.6 | 91.6 |
+| [ScreenSpot-V2](https://arxiv.org/pdf/2410.23218) | **94.2** | 87.9 | 87.6 | 91.6 |
 | [ScreenSpotPro](https://github.com/lixaixin2000/ScreenSpot-Pro-GUI-Grounding?tab=readme-ov-file) | **61.6** | 23.4 | 27.7 | 43.6 |
 
 
