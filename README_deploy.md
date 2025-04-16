@@ -81,7 +81,7 @@ def add_box_token(input_string):
     return final_string
 
 client = OpenAI(
-    base_url="https://xxx",
+    base_url="https:xxx",
     api_key="hf_xxx"
 )
 
