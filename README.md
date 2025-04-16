@@ -50,7 +50,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 **Grounding Capability Evaluation**
 | Benchmark | UI-TARS-1.5 | OpenAI CUA | Claude 3.7 | Previous SOTA |
 |-----------|-------------|------------|------------|----------------|
-| [SeeClick-V2](https://arxiv.org/pdf/2410.23218) | **94.2** | 87.9 | 87.6 | 91.6 |
+| [ScreensSpot-V2](https://arxiv.org/pdf/2410.23218) | **94.2** | 87.9 | 87.6 | 91.6 |
 | [ScreenSpotPro](https://github.com/lixaixin2000/ScreenSpot-Pro-GUI-Grounding?tab=readme-ov-file) | **61.6** | 23.4 | 27.7 | 43.6 |
 
 
@@ -66,17 +66,16 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 
 **Minecraft**
 
-| Task Type   | Task Name           | [VPT](https://openai.com/index/vpt/) | [DreamerV3](https://www.nature.com/articles/s41586-025-08744-2) | [Previous SOTA](https://arxiv.org/abs/2503.16365) | TARS w/o Thought | TARS w/ Thought |
+| Task Type   | Task Name           | [VPT](https://openai.com/index/vpt/) | [DreamerV3](https://www.nature.com/articles/s41586-025-08744-2) | Previous SOTA | UI-TARS-1.5 w/o Thought | UI-TARS-1.5 w/ Thought |
 |-------------|---------------------|----------|----------------|--------------------|------------------|-----------------|
-| Mine Blocks | (log)               | 0.8      | 1.0            | 0.5                | 1.0              | 1.0             |
+| Mine Blocks | (oak_log)               | 0.8      | 1.0            | 1.0                | 1.0              | 1.0             |
 |             | (obsidian)          | 0.0      | 0.0            | 0.0                | 0.2              | 0.3             |
-|             | (bed)               | 0.0      | 0.0            | 0.1                | 0.4              | 0.6             |
+|             | (white_bed)               | 0.0      | 0.0            | 0.1                | 0.4              | 0.6             |
 |             | **200 Tasks Avg.**  | 0.06     | 0.03           | 0.32               | 0.35             | 0.42            |
-| Kill Mobs   | (evoker)            | 0.0      | 0.0            | 0.1                | 0.3              | 0.4             |
+| Kill Mobs   | (mooshroom)            | 0.0      | 0.0            | 0.1                | 0.3              | 0.4             |
 |             | (zombie)            | 0.4      | 0.1            | 0.6                | 0.7              | 0.9             |
-|             | (pillager)          | 0.1      | 0.0            | 0.1                | 0.5              | 0.6             |
+|             | (chicken)          | 0.1      | 0.0            | 0.4                | 0.5              | 0.6             |
 |             | **100 Tasks Avg.**  | 0.04     | 0.03           | 0.18               | 0.25             | 0.31            |
-
 
 
 ### Limitations
