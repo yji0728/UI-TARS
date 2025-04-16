@@ -7,7 +7,7 @@ We use HuggingFace's Inference Endpoints platform to quickly deploy a cloud-base
 ### Deployment Steps
 
 1. **Access the Deployment Interface**  
-    - Click [Deploy from Hugging Face](https://endpoints.huggingface.co/JjjFangg/catalog)  
+    - Click [Deploy from Hugging Face](https://endpoints.huggingface.co/catalog)  
     ![Deploy from Hugging Face](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_1.png?download=true)  
     - Select the model `UI-TARS 1.5 7B` and click **Import Model**  
     ![Import Model](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_2.png?download=true)  
@@ -86,7 +86,7 @@ client = OpenAI(
 )
 
 result = {}
-messages = json.load(open("test_messages.json"))
+messages = json.load(open("./data/test_messages.json"))
 for message in messages:
     if message["role"] == "assistant":
         message["content"] = add_box_token(message["content"])
@@ -113,6 +113,6 @@ print(response)
 
 ### **Expected Output** ###
 ```python
-Thought: 看来GIMP在处理这张图片时遇到了颜色配置文件的问题。我需要先处理这个弹窗，点击右下角的"Convert"按钮来确认颜色配置，这样才能继续后面的设置。这个弹窗提示我图片带有嵌入的颜色配置文件，需要转换到内置的sRGB配置。
-Action: click(start_box='(1159,706)')
+Thought: 我看到Preferences窗口已经打开了，但这里显示的都是系统资源相关的设置。要设置图片的颜色模式，我得先看看左侧的选项列表。嗯，"Color Management"这个选项看起来很有希望，应该就是处理颜色管理的地方。让我点击它看看里面有什么选项。
+Action: click(start_box='(177,549)')
 ```
