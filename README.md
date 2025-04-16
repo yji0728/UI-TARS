@@ -54,7 +54,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 | Benchmark | UI-TARS-1.5 | OpenAI CUA | Claude 3.7 | Previous SOTA |
 |-----------|-------------|------------|------------|----------------|
 | [ScreenSpot-V2](https://arxiv.org/pdf/2410.23218) | **94.2** | 87.9 | 87.6 | 91.6 |
-| [ScreenSpotPro](https://github.com/lixaixin2000/ScreenSpot-Pro-GUI-Grounding?tab=readme-ov-file) | **61.6** | 23.4 | 27.7 | 43.6 |
+| [ScreenSpotPro](https://arxiv.org/pdf/2504.07981v1) | **61.6** | 23.4 | 27.7 | 43.6 |
 
 
 
@@ -80,6 +80,14 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 |             | (chicken)          | 0.1      | 0.0            | 0.4                | 0.5              | 0.6             |
 |             | **100 Tasks Avg.**  | 0.04     | 0.03           | 0.18               | 0.25             | 0.31            |
 
+# Model Scale Comparison
+
+Here we compare performance across different model scales of UI-TARS on the OSworld benchmark.
+
+| **Benchmark Type** | **Benchmark**                      | **UI-TARS-72B-DPO** | **UI-TARS-1.5-7B** | **UI-TARS-1.5** |
+|--------------------|------------------------------------|---------------------|--------------------|-----------------|
+| Computer Use       | [OSWorld](https://arxiv.org/abs/2404.07972)             | 24.6                | 27.5               | **42.5**        |
+| GUI Grounding      | [ScreenSpotPro](https://arxiv.org/pdf/2504.07981v1) | 38.1                | 49.6               | **61.6**        |
 
 ### Limitations
 
