@@ -23,20 +23,26 @@ We use HuggingFace's Inference Endpoints platform to quickly deploy a cloud-base
             - `Max Number of Tokens (per Query)`: 65536  
             - `Max Batch Prefill Tokens`: 65536  
             - `Max Input Length (per Query)`: 65537  
+        ![Container Configuration](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_4.png?download=true)
 
     - **Environment Variables**  
         - Add the following environment variables:  
             - `CUDA_GRAPHS=0` to avoid deployment failures. For details, refer to [issue 2875](https://github.com/huggingface/text-generation-inference/issues/2875).  
             - `PAYLOAD_LIMIT=8000000` to prevent request failures due to large images. For details, refer to [issue 1802](https://github.com/huggingface/text-generation-inference/issues/1802).  
-        ![Environment Variables](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_4.png?download=true)
+        ![Environment Variables](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_5.png?download=true)
 
     - **Create Endpoint**  
         - Click **Create** to set up the endpoint.  
-        ![Create Endpoint](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_5.png?download=true)
+        ![Create Endpoint](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_6.png?download=true)
 
-    - **Complete Setup**  
-        - Once the deployment is finished, you will see the confirmation page.  
-        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_6.png?download=true)
+    - **Enter Setup**  
+        - Once the deployment is finished, you will see the confirmation page and need to enter the settings page.  
+        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_7.png?download=true)
+    
+    - **Update URI** -
+        - Go to the Container page, set the Container URI to ghcr.io/huggingface/text-generation-inference:3.2.1, and **click Update Endpoint to apply the changes**. 
+        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_8.png?download=true)
+
 
 ## 2. API Usage Example
 
@@ -80,7 +86,7 @@ client = OpenAI(
 )
 
 result = {}
-messages = json.load(open("./data/test_messages.json"))
+messages = json.load(open("test_messages.json"))
 for message in messages:
     if message["role"] == "assistant":
         message["content"] = add_box_token(message["content"])
