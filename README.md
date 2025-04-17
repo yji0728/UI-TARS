@@ -107,6 +107,9 @@ We are providing early research access to our top-performing UI-TARS-1.5 model t
 
 Looking ahead, we envision UI-TARS evolving into increasingly sophisticated agentic experiences capable of performing real-world actions, thereby empowering platforms such as [doubao](https://team.doubao.com/en/) to accomplish more complex tasks for you :)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=bytedance/UI-TARS&type=Date)](https://www.star-history.com/#bytedance/UI-TARS&Date)
 
 ## Citation
 If you find our paper and model useful in your research, feel free to give us a cite.
