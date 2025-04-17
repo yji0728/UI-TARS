@@ -80,7 +80,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 |             | (chicken)          | 0.1      | 0.0            | 0.4                | 0.5              | 0.6             |
 |             | **100 Tasks Avg.**  | 0.04     | 0.03           | 0.18               | 0.25             | 0.31            |
 
-# Model Scale Comparison
+## Model Scale Comparison
 
 Here we compare performance across different model scales of UI-TARS on the OSworld benchmark.
 
@@ -96,6 +96,7 @@ While UI-TARS-1.5 represents a significant advancement in multimodal agent capab
 - **Misuse:** Given its enhanced performance in GUI tasks, including successfully navigating authentication challenges like CAPTCHA, UI-TARS-1.5 could potentially be misused for unauthorized access or automation of protected content. To mitigate this risk, extensive internal safety evaluations are underway.
 - **Computation:** UI-TARS-1.5 still requires substantial computational resources, particularly for large-scale tasks or extended gameplay scenarios.
 - **Hallucination**: UI-TARS-1.5 may occasionally generate inaccurate descriptions, misidentify GUI elements, or take suboptimal actions based on incorrect inferences—especially in ambiguous or unfamiliar environments.
+- **Model scale:** The released UI-TARS-1.5-7B focuses primarily on enhancing general computer use capabilities and is not specifically optimized for game-based scenarios, where the UI-TARS-1.5 still holds a significant advantage.
 
 ## What's next
 
