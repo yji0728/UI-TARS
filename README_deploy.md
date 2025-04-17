@@ -8,40 +8,40 @@ We use HuggingFace's Inference Endpoints platform to quickly deploy a cloud-base
 
 1. **Access the Deployment Interface**  
     - Click [Deploy from Hugging Face](https://endpoints.huggingface.co/catalog)  
-    ![Deploy from Hugging Face](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_1.png?download=true)  
+    ![Deploy from Hugging Face](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_1_formal.png?download=true)  
     - Select the model `UI-TARS 1.5 7B` and click **Import Model**  
-    ![Import Model](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_2.png?download=true)  
+    ![Import Model](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_2_formal.png?download=true)  
 
 2. **Configure Settings**
     - **Hardware Configuration**  
         - In the `Hardware Configuration` section, choose a GPU instance. Here are the recommendations for different model sizes:  
             - For the 7B model, select `GPU L40S 1GPU 48G` (Recommended: Nvidia L4 / Nvidia A100).  
-        ![Hardware Configuration](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_3.png?download=true)
+        ![Hardware Configuration](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_3_formal.png?download=true)
 
     - **Container Configuration**  
         - Set the following parameters:  
             - `Max Number of Tokens (per Query)`: 65536  
             - `Max Batch Prefill Tokens`: 65536  
             - `Max Input Length (per Query)`: 65537  
-        ![Container Configuration](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_4.png?download=true)
+        ![Container Configuration](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_4_formal.png?download=true)
 
     - **Environment Variables**  
         - Add the following environment variables:  
             - `CUDA_GRAPHS=0` to avoid deployment failures. For details, refer to [issue 2875](https://github.com/huggingface/text-generation-inference/issues/2875).  
             - `PAYLOAD_LIMIT=8000000` to prevent request failures due to large images. For details, refer to [issue 1802](https://github.com/huggingface/text-generation-inference/issues/1802).  
-        ![Environment Variables](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_5.png?download=true)
+        ![Environment Variables](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_5_formal.png?download=true)
 
     - **Create Endpoint**  
         - Click **Create** to set up the endpoint.  
-        ![Create Endpoint](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_6.png?download=true)
+        ![Create Endpoint](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_6_formal.png?download=true)
 
     - **Enter Setup**  
         - Once the deployment is finished, you will see the confirmation page and need to enter the settings page.  
-        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_7.png?download=true)
+        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_7_formal.png?download=true)
     
     - **Update URI** -
         - Go to the Container page, set the Container URI to ghcr.io/huggingface/text-generation-inference:3.2.1, and **click Update Endpoint to apply the changes**. 
-        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_8.png?download=true)
+        ![Complete](https://huggingface.co/datasets/JjjFangg/Demo_video/resolve/main/deployment_8_formal.png?download=true)
 
 
 ## 2. API Usage Example
