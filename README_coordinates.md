@@ -7,10 +7,7 @@
 
 ## Steps:
 
-1. **Download the Example Image**  
-   Download the [example image](https://cdn-lfs-us-1.hf.co/repos/f7/27/f727ac161fcc1b2767ad196fd9a6739610be0204ccd217c0d091b018dd26ca86/d8d344455a0aeea1605888de226fd0fedf7b5218a9748a56dddef15111da7704?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27output_image_13.png%3B+filename%3D%22output_image_13.png%22%3B&response-content-type=image%2Fpng&Expires=1745313853&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc0NTMxMzg1M319LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy11cy0xLmhmLmNvL3JlcG9zL2Y3LzI3L2Y3MjdhYzE2MWZjYzFiMjc2N2FkMTk2ZmQ5YTY3Mzk2MTBiZTAyMDRjY2QyMTdjMGQwOTFiMDE4ZGQyNmNhODYvZDhkMzQ0NDU1YTBhZWVhMTYwNTg4OGRlMjI2ZmQwZmVkZjdiNTIxOGE5NzQ4YTU2ZGRkZWYxNTExMWRhNzcwND9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSomcmVzcG9uc2UtY29udGVudC10eXBlPSoifV19&Signature=m%7E02qVd%7EnnYxeep%7ECayO43YTx3V0DfQQAvJ5BnteqSyWz9lxWVGnThOXHNB2Em%7EtNycVOId9DgCsAMGiCoa3fOc9lWUq%7E3CUi99OI3x3qypbDh3aVJ%7Ea0qe8T1lZiXSNEOFRm0qc1OWnu1l%7EJzgB%7EfEMeAbalnVhjLpMt%7EeJX0hqmd2w8QXf3YaNvAC2fVuv7c9X6oWjywFhIhUCOphn0WD8HyfXqVrHv9qsj6eO61RpnI-0VLZ-PSCDpjoQ12GRAEDgfHDAS0F22vJH65h1kblfYBCPeIi2FpJwe7Me4NSpr8LxKdnKb7sfvZ7wViPMK%7ELNuNWKzVjaqzxlhEGGYA__&Key-Pair-Id=K24J24Z295AEI9) to your local machine.
-
-2. **Visualize the Model's Output Coordinates**  
+1. **Visualize the Model's Output Coordinates**  
    Use the code provided below to process the model's output and visualize the coordinates on the image.
 
 ## Code Example
@@ -103,6 +100,6 @@ plt.axis('off')  # Set to 'off' to hide the axes
 plt.savefig('./data/coordinate_process_image_som.png', dpi=350)
 ```
 
-3. The output SOM image should look like this:
+2. The output SOM image should look like this:
 
 ![Output SOM Image](./data/coordinate_process_image_som.png)
