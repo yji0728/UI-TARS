@@ -36,7 +36,8 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 
 ## Deployment
 - See the deploy guide <a href="README_deploy.md">here</a>.
-- For coordinates processing, refer to [OSWorld uitars_agent.py](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/uitars_agent.py)
+- For coordinates processing, refer to <a href="README_coordinates.md">here</a>.
+- For full action space parsing, refer to [OSWorld uitars_agent.py](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/uitars_agent.py)
 
 ## System Prompts
 - Refer to <a href="./prompts.py">prompts.py</a>
