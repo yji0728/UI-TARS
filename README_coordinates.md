@@ -85,10 +85,8 @@ def smart_resize(
         w_bar = ceil_by_factor(width * beta, factor)
     return h_bar, w_bar
 
-# Convert byte data to a PIL image
-img = Image.open(BytesIO(image_data))
 # Open the image
-img = Image.open('path/to/image')
+img = Image.open('./data/coordinate_process_image.png')
 width, height = img.size
 print(f'Original coordinate: {width}, {height}')
 # Calculate the new dimensions
@@ -99,8 +97,12 @@ print(new_coordinate)
 
 # Display the image
 plt.imshow(img)
-plt.scatter([new_coordinate[0]], [new_coordinate[1]], c='red', s=50)  # Mark the point (245, 114) with a red dot
-plt.title('Visualize Coordinate (245, 114)')
+plt.scatter([new_coordinate[0]], [new_coordinate[1]], c='red', s=50)  # Mark the point with a red dot
+plt.title('Visualize Coordinate')
 plt.axis('off')  # Set to 'off' to hide the axes
-plt.savefig('/path/to/save')
+plt.savefig('./data/coordinate_process_image_som.png', dpi=350)
 ```
+
+3. The output SOM image should look like this:
+
+![Output SOM Image](./data/coordinate_process_image_som.png)
