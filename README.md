@@ -40,7 +40,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 - For full action space parsing, refer to [OSWorld uitars_agent.py](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/uitars_agent.py)
 
 ## System Prompts
-- Refer to <a href="./prompts.py">prompts.py</a>
+- Refer to <a href="./prompts.py">prompts.py</a>. For computer scenario, please use COMPUTER_USE. For mobile, please use MOBILE_USE. For grounding only tasks, please use GROUNDING. 
 
 
 ## Performance

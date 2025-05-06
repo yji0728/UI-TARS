@@ -54,3 +54,6 @@ finished(content='xxx') # Use escape characters \\', \\", and \\n in content par
 ## User Instruction
 {instruction}
 """ 
+
+GROUNDING = """You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. \n\n## Output Format\n\nAction: ...\n\n\n## Action Space\nclick(start_box='<|box_start|>(x1,y1)<|box_end|>')\n\n## User Instruction\n## User Instruction
+{instruction}"""
