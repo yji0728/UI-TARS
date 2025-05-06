@@ -34,16 +34,26 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
     </video>
 <p>
 
-## Deployment
-- See the deploy guide <a href="README_deploy.md">here</a>.
-- For coordinates processing, refer to <a href="README_coordinates.md">here</a>.
-- For full action space parsing, refer to [OSWorld uitars_agent.py](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/uitars_agent.py)
+## 🚀 Quick Start Guide: Deploying and Using Our Model
+
+To help you get started quickly with our model, we recommend following the steps below in order. These steps will guide you through deployment, prediction post-processing, and evaluation using the OSWorld benchmark.
+
+
+### ✅ Step 1: Deployment & Inference
+
+👉 <a href="README_deploy.md">Deployment and Inference</a>.
+This includes instructions for model deployment using huggingface endpoint, and running your first prediction.
+
+
+### ✅ Step 2: Post Processing
+
+👉 <a href="codes/action_parser.py">Prediction Post-Processing</a>.
+This includes parsing model predictions to executable pyautogui codes.
+To help you better understand the coordinate processing, we also provide a <a href="README_coordinates.md">guide</a> for coordinates processing visualization.
 
 ## Prompt Usage Guide
 
-To accommodate different device environments and task complexities, the following three prompt templates are designed to guide GUI agents in generating appropriate actions. Choose the template that best fits your use case:
-
----
+To accommodate different device environments and task complexities, the following three prompt templates in <a href="codes/prompts.py">codes/prompts.py</a>. are designed to guide GUI agents in generating appropriate actions. Choose the template that best fits your use case:
 
 ### 🖥️ `COMPUTER_USE`
 
@@ -53,7 +63,6 @@ To accommodate different device environments and task complexities, the followin
 - Supports common desktop operations: mouse clicks (single, double, right), drag actions, keyboard shortcuts, text input, scrolling, etc.
 - Ideal for browser navigation, office software interaction, file management, and other desktop-based tasks.
 
----
 
 ### 📱 `MOBILE_USE`
 
@@ -63,7 +72,6 @@ To accommodate different device environments and task complexities, the followin
 - Includes mobile-specific actions: `long_press`, `open_app`, `press_home`, `press_back`.
 - Suitable for launching apps, scrolling views, filling input fields, and navigating within mobile apps.
 
----
 
 ### 📌 `GROUNDING`
 
