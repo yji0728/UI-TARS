@@ -36,7 +36,7 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 
 ## 🚀 Quick Start Guide: Deploying and Using Our Model
 
-To help you get started quickly with our model, we recommend following the steps below in order. These steps will guide you through deployment, prediction post-processing, and evaluation using the OSWorld benchmark.
+To help you get started quickly with our model, we recommend following the steps below in order. These steps will guide you through deployment, prediction post-processing to make the model take actions in your environment.
 
 
 ### ✅ Step 1: Deployment & Inference
@@ -73,7 +73,7 @@ To accommodate different device environments and task complexities, the followin
 - Suitable for launching apps, scrolling views, filling input fields, and navigating within mobile apps.
 
 
-### 📌 `GROUNDING`
+### 📌 `GROUNDING` 
 
 **Recommended for**: Lightweight tasks focused solely on **action output**, or for use in model training and evaluation.
 
