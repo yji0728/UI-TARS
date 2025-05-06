@@ -39,8 +39,43 @@ Leveraging the foundational architecture introduced in [our recent paper](https:
 - For coordinates processing, refer to <a href="README_coordinates.md">here</a>.
 - For full action space parsing, refer to [OSWorld uitars_agent.py](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/uitars_agent.py)
 
-## System Prompts
-- Refer to <a href="./prompts.py">prompts.py</a>. For computer scenario, please use COMPUTER_USE. For mobile, please use MOBILE_USE. For grounding only tasks, please use GROUNDING. 
+## Prompt Usage Guide
+
+To accommodate different device environments and task complexities, the following three prompt templates are designed to guide GUI agents in generating appropriate actions. Choose the template that best fits your use case:
+
+---
+
+### 🖥️ `COMPUTER_USE`
+
+**Recommended for**: GUI tasks on **desktop environments** such as Windows, Linux, or macOS.
+
+**Features**:
+- Supports common desktop operations: mouse clicks (single, double, right), drag actions, keyboard shortcuts, text input, scrolling, etc.
+- Ideal for browser navigation, office software interaction, file management, and other desktop-based tasks.
+
+---
+
+### 📱 `MOBILE_USE`
+
+**Recommended for**: GUI tasks on **mobile devices or Android emulators**.
+
+**Features**:
+- Includes mobile-specific actions: `long_press`, `open_app`, `press_home`, `press_back`.
+- Suitable for launching apps, scrolling views, filling input fields, and navigating within mobile apps.
+
+---
+
+### 📌 `GROUNDING`
+
+**Recommended for**: Lightweight tasks focused solely on **action output**, or for use in model training and evaluation.
+
+**Features**:
+- Only outputs the `Action` without any reasoning (`Thought`).
+- Useful for evaluating grounding capability.
+
+---
+
+When developing or evaluating multimodal interaction systems, choose the appropriate prompt template based on your target platform (desktop vs. mobile) 
 
 
 ## Performance
