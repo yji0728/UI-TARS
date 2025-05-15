@@ -85,11 +85,11 @@ def smart_resize(
 # Open the image
 img = Image.open('./data/coordinate_process_image.png')
 width, height = img.size
-print(f'Original coordinate: {width}, {height}')
+print(f'Original resolution: {width}, {height}')
 # Calculate the new dimensions
 new_height, new_width = smart_resize(height, width)
 new_coordinate = (int(model_output_width/new_width * width), int(model_output_height/new_height * height))
-print(f'Resized dimensions: {new_width}, {new_height}')
+print(f'Resized resolution: {new_width}, {new_height}')
 print(new_coordinate)
 
 # Display the image
