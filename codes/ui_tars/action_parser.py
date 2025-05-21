@@ -1,16 +1,31 @@
-import ast
-import base64
-import logging
-import math
+# Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+# SPDX-License-Identifier: Apache-2.0
 import re
-import xml.etree.ElementTree as ET
-from io import BytesIO
-from typing import Dict, List
+import ast
+import math
 
 IMAGE_FACTOR = 28
 MIN_PIXELS = 100 * 28 * 28
 MAX_PIXELS = 16384 * 28 * 28
 MAX_RATIO = 200
+
+
+def convert_point_to_coordinates(text, is_answer=False):
+    # 匹配 <bbox> 后面的四个数字
+    pattern = r"<point>(\d+)\s+(\d+)</point>"
+
+    def replace_match(match):
+        x1, y1 = map(int, match.groups())
+        x = (x1 + x1) // 2  # 使用截断取整
+        y = (y1 + y1) // 2  # 使用截断取整
+        if is_answer:
+            return f"({x},{y})"  # 只返回 (x, y) 格式
+        return f"({x},{y})"  # 返回带标签的格式
+
+    # 去掉 [EOS] 并替换 <bbox> 坐标
+    text = re.sub(r"\[EOS\]", "", text)
+    return re.sub(pattern, replace_match, text).strip()
+
 
 # 定义一个函数来解析每个 action
 def parse_action(action_str):
@@ -50,19 +65,18 @@ def parse_action(action_str):
                 value = None
             kwargs[key] = value
 
-        return {
-            'function': func_name,
-            'args': kwargs
-        }
+        return {'function': func_name, 'args': kwargs}
 
     except Exception as e:
         print(f"Failed to parse action '{action_str}': {e}")
         return None
-    
+
+
 def escape_single_quotes(text):
     # 匹配未转义的单引号（不匹配 \\'）
     pattern = r"(?<!\\)'"
     return re.sub(pattern, r"\\'", text)
+
 
 def round_by_factor(number: int, factor: int) -> int:
     """Returns the closest integer to 'number' that is divisible by 'factor'."""
@@ -78,9 +92,12 @@ def floor_by_factor(number: int, factor: int) -> int:
     """Returns the largest integer less than or equal to 'number' that is divisible by 'factor'."""
     return math.floor(number / factor) * factor
 
-def linear_resize(
-    height: int, width: int, factor: int = IMAGE_FACTOR, min_pixels: int = MIN_PIXELS, max_pixels: int = MAX_PIXELS
-) -> tuple[int, int]:
+
+def linear_resize(height: int,
+                  width: int,
+                  factor: int = IMAGE_FACTOR,
+                  min_pixels: int = MIN_PIXELS,
+                  max_pixels: int = MAX_PIXELS) -> tuple[int, int]:
     if width * height > max_pixels:
         """
         如果图片超过/低于像素限制，则计算一个缩放因子resize_factor，使图片的像素数缩小到等于或小于max_pixels。这个缩放因子是通过开平方根计算的，确保纵横比保持不变,这样原始的相对坐标可以不经转换直接复用
@@ -89,13 +106,17 @@ def linear_resize(
         width, height = int(width * resize_factor), int(height * resize_factor)
     if width * height < min_pixels:
         resize_factor = math.sqrt(min_pixels / (width * height))
-        width, height = math.ceil(width * resize_factor), math.ceil(height * resize_factor)
+        width, height = math.ceil(width * resize_factor), math.ceil(
+            height * resize_factor)
 
-    return height, width 
+    return height, width
 
-def smart_resize(
-    height: int, width: int, factor: int = IMAGE_FACTOR, min_pixels: int = MIN_PIXELS, max_pixels: int = MAX_PIXELS
-) -> tuple[int, int]:
+
+def smart_resize(height: int,
+                 width: int,
+                 factor: int = IMAGE_FACTOR,
+                 min_pixels: int = MIN_PIXELS,
+                 max_pixels: int = MAX_PIXELS) -> tuple[int, int]:
     """
     Rescales the image so that the following conditions are met:
 
@@ -121,23 +142,45 @@ def smart_resize(
         w_bar = ceil_by_factor(width * beta, factor)
     return h_bar, w_bar
 
-def parse_action_to_structure_output(text, factor, origin_resized_height, origin_resized_width, model_type="qwen25vl", max_pixels=16384*28*28, min_pixels=100*28*28):
+
+def parse_action_to_structure_output(text,
+                                     factor,
+                                     origin_resized_height,
+                                     origin_resized_width,
+                                     model_type="qwen25vl",
+                                     max_pixels=16384 * 28 * 28,
+                                     min_pixels=100 * 28 * 28):
     text = text.strip()
+
+    if "<point>" in text:
+        text = convert_point_to_coordinates(text)
+    if "start_point=" in text:
+        text = text.replace("start_point=", "start_box=")
+    if "end_point=" in text:
+        text = text.replace("end_point=", "end_box=")
+    if "point=" in text:
+        text = text.replace("point=", "start_box=")
+
     if model_type == "qwen25vl":
-        smart_resize_height, smart_resize_width = smart_resize(origin_resized_height, origin_resized_width, factor=IMAGE_FACTOR, min_pixels=min_pixels, max_pixels=max_pixels)
+        smart_resize_height, smart_resize_width = smart_resize(
+            origin_resized_height,
+            origin_resized_width,
+            factor=IMAGE_FACTOR,
+            min_pixels=min_pixels,
+            max_pixels=max_pixels)
 
     # 正则表达式匹配 Action 字符串
     if text.startswith("Thought:"):
-        thought_pattern = r"Thought: (.+?)(?=\s*Action:|$)"
+        thought_pattern = r"Thought: (.+?)(?=\s*Action: |$)"
         thought_hint = "Thought: "
     elif text.startswith("Reflection:"):
-        thought_pattern = r"Reflection: (.+?)Action_Summary: (.+?)(?=\s*Action:|$)"
+        thought_pattern = r"Reflection: (.+?)Action_Summary: (.+?)(?=\s*Action: |$)"
         thought_hint = "Reflection: "
     elif text.startswith("Action_Summary:"):
-        thought_pattern = r"Action_Summary: (.+?)(?=\s*Action:|$)"
+        thought_pattern = r"Action_Summary: (.+?)(?=\s*Action: |$)"
         thought_hint = "Action_Summary: "
     else:
-        thought_pattern = r"Thought: (.+?)(?=\s*Action:|$)"
+        thought_pattern = r"Thought: (.+?)(?=\s*Action: |$)"
         thought_hint = "Thought: "
     reflection, thought = None, None
     thought_match = re.search(thought_pattern, text, re.DOTALL)
@@ -148,9 +191,9 @@ def parse_action_to_structure_output(text, factor, origin_resized_height, origin
             thought = thought_match.group(2).strip()
             reflection = thought_match.group(1).strip()
     assert "Action:" in text
-    action_str = text.split("Action:")[-1]
+    action_str = text.split("Action: ")[-1]
 
-    tmp_all_action = action_str.split("\n\n")
+    tmp_all_action = action_str.split("')\n\n")
     all_action = []
     for action_str in tmp_all_action:
         if "type(content" in action_str:
@@ -168,12 +211,15 @@ def parse_action_to_structure_output(text, factor, origin_resized_height, origin
             action_str = "type(content='" + action_str + "')"
         all_action.append(action_str)
 
-    parsed_actions = [parse_action(action.replace("\n","\\n").lstrip()) for action in all_action]
+    parsed_actions = [
+        parse_action(action.replace("\n", "\\n").lstrip())
+        for action in all_action
+    ]
     actions = []
     for action_instance, raw_str in zip(parsed_actions, all_action):
         if action_instance == None:
             print(f"Action can't parse: {raw_str}")
-            raise ValueError(f"Action can't parse: {raw_str}") 
+            raise ValueError(f"Action can't parse: {raw_str}")
         action_type = action_instance["function"]
         params = action_instance["args"]
 
@@ -184,7 +230,7 @@ def parse_action_to_structure_output(text, factor, origin_resized_height, origin
             param = param.lstrip()  # 去掉引号和多余的空格
             # 处理start_box或者end_box参数格式 '<bbox>x1 y1 x2 y2</bbox>'
             action_inputs[param_name.strip()] = param
-            
+
             if "start_box" in param_name or "end_box" in param_name:
                 ori_box = param
                 # Remove parentheses and split the string by commas
@@ -197,14 +243,19 @@ def parse_action_to_structure_output(text, factor, origin_resized_height, origin
                     for num_idx, num in enumerate(numbers):
                         num = float(num)
                         if (num_idx + 1) % 2 == 0:
-                            float_numbers.append(float(num/smart_resize_height))
+                            float_numbers.append(
+                                float(num / smart_resize_height))
                         else:
-                            float_numbers.append(float(num/smart_resize_width))
+                            float_numbers.append(
+                                float(num / smart_resize_width))
                 else:
                     float_numbers = [float(num) / factor for num in numbers]
 
                 if len(float_numbers) == 2:
-                    float_numbers = [float_numbers[0], float_numbers[1], float_numbers[0], float_numbers[1]]
+                    float_numbers = [
+                        float_numbers[0], float_numbers[1], float_numbers[0],
+                        float_numbers[1]
+                    ]
                 action_inputs[param_name.strip()] = str(float_numbers)
 
         # import pdb; pdb.set_trace()
@@ -217,7 +268,11 @@ def parse_action_to_structure_output(text, factor, origin_resized_height, origin
         })
     return actions
 
-def parsing_response_to_pyautogui_code(responses, image_height: int, image_width:int, input_swap:bool=True) -> str:
+
+def parsing_response_to_pyautogui_code(responses,
+                                       image_height: int,
+                                       image_width: int,
+                                       input_swap: bool = True) -> str:
     '''
     将M模型的输出解析为OSWorld中的action，生成pyautogui代码字符串
     参数:
@@ -247,7 +302,7 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
             thought = response["thought"]
         else:
             thought = ""
-        
+
         if response_id == 0:
             pyautogui_code += f"'''\nObservation:\n{observation}\n\nThought:\n{thought}\n'''\n"
         else:
@@ -256,7 +311,7 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
         action_dict = response
         action_type = action_dict.get("action_type")
         action_inputs = action_dict.get("action_inputs", {})
-        
+
         if action_type == "hotkey":
             # Parsing hotkey action
             if "key" in action_inputs:
@@ -269,10 +324,10 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
 
             elif hotkey == "arrowright":
                 hotkey = "right"
-            
+
             elif hotkey == "arrowup":
                 hotkey = "up"
-            
+
             elif hotkey == "arrowdown":
                 hotkey = "down"
 
@@ -285,40 +340,58 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
                         key = ' '
                     convert_keys.append(key)
                 pyautogui_code += f"\npyautogui.hotkey({', '.join([repr(k) for k in convert_keys])})"
-        
-        elif action_type == "press":
+
+        elif action_type in ["press", "keydown"]:
             # Parsing press action
             if "key" in action_inputs:
                 key_to_press = action_inputs.get("key", "")
             else:
                 key_to_press = action_inputs.get("press", "")
 
-            if hotkey == "arrowleft":
-                hotkey = "left"
+            if key_to_press == "arrowleft":
+                key_to_press = "left"
 
-            elif hotkey == "arrowright":
-                hotkey = "right"
-            
-            elif hotkey == "arrowup":
-                hotkey = "up"
-            
-            elif hotkey == "arrowdown":
-                hotkey = "down"
-            
-            elif hotkey == "space":
-                hotkey = " "
-                
+            elif key_to_press == "arrowright":
+                key_to_press = "right"
+
+            elif key_to_press == "arrowup":
+                key_to_press = "up"
+
+            elif key_to_press == "arrowdown":
+                key_to_press = "down"
+
+            elif key_to_press == "space":
+                key_to_press = " "
+
             if key_to_press:
                 # Simulate pressing a single key
-                pyautogui_code += f"\npyautogui.press({repr(key_to_press)})"
-            
-        elif action_type == "keyup":
-            key_to_up = action_inputs.get("key", "")
-            pyautogui_code += f"\npyautogui.keyUp({repr(key_to_up)})"
-        
-        elif action_type == "keydown":
-            key_to_down = action_inputs.get("key", "")
-            pyautogui_code += f"\npyautogui.keyDown({repr(key_to_down)})"
+                pyautogui_code += f"\npyautogui.keyDown({repr(key_to_press)})"
+
+        elif action_type in ["release", "keyup"]:
+            # Parsing press action
+            if "key" in action_inputs:
+                key_to_press = action_inputs.get("key", "")
+            else:
+                key_to_press = action_inputs.get("press", "")
+
+            if key_to_press == "arrowleft":
+                key_to_press = "left"
+
+            elif key_to_press == "arrowright":
+                key_to_press = "right"
+
+            elif key_to_press == "arrowup":
+                key_to_press = "up"
+
+            elif key_to_press == "arrowdown":
+                key_to_press = "down"
+
+            elif key_to_press == "space":
+                key_to_press = " "
+
+            if key_to_press:
+                # Simulate pressing a single key
+                pyautogui_code += f"\npyautogui.keyUp({repr(key_to_press)})"
 
         elif action_type == "type":
             # Parsing typing action using clipboard
@@ -341,38 +414,39 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
                     if content.endswith("\n") or content.endswith("\\n"):
                         pyautogui_code += f"\npyautogui.press('enter')"
 
-        
         elif action_type in ["drag", "select"]:
             # Parsing drag or select action based on start and end_boxes
             start_box = action_inputs.get("start_box")
             end_box = action_inputs.get("end_box")
             if start_box and end_box:
-                x1, y1, x2, y2 = eval(start_box)  # Assuming box is in [x1, y1, x2, y2]
+                x1, y1, x2, y2 = eval(
+                    start_box)  # Assuming box is in [x1, y1, x2, y2]
                 sx = round(float((x1 + x2) / 2) * image_width, 3)
                 sy = round(float((y1 + y2) / 2) * image_height, 3)
-                x1, y1, x2, y2 = eval(end_box)  # Assuming box is in [x1, y1, x2, y2]
+                x1, y1, x2, y2 = eval(
+                    end_box)  # Assuming box is in [x1, y1, x2, y2]
                 ex = round(float((x1 + x2) / 2) * image_width, 3)
                 ey = round(float((y1 + y2) / 2) * image_height, 3)
                 pyautogui_code += (
                     f"\npyautogui.moveTo({sx}, {sy})\n"
-                    f"\npyautogui.dragTo({ex}, {ey}, duration=1.0)\n"
-                )
+                    f"\npyautogui.dragTo({ex}, {ey}, duration=1.0)\n")
 
         elif action_type == "scroll":
             # Parsing scroll action
             start_box = action_inputs.get("start_box")
             if start_box:
-                x1, y1, x2, y2 = eval(start_box)  # Assuming box is in [x1, y1, x2, y2]
+                x1, y1, x2, y2 = eval(
+                    start_box)  # Assuming box is in [x1, y1, x2, y2]
                 x = round(float((x1 + x2) / 2) * image_width, 3)
                 y = round(float((y1 + y2) / 2) * image_height, 3)
-                
+
                 # # 先点对应区域，再滚动
                 # pyautogui_code += f"\npyautogui.click({x}, {y}, button='left')"
             else:
                 x = None
                 y = None
             direction = action_inputs.get("direction", "")
-            
+
             if x == None:
                 if "up" in direction.lower():
                     pyautogui_code += f"\npyautogui.scroll(5)"
@@ -384,7 +458,9 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
                 elif "down" in direction.lower():
                     pyautogui_code += f"\npyautogui.scroll(-5, x={x}, y={y})"
 
-        elif action_type in ["click", "left_single", "left_double", "right_single", "hover"]:
+        elif action_type in [
+                "click", "left_single", "left_double", "right_single", "hover"
+        ]:
             # Parsing mouse click actions
             start_box = action_inputs.get("start_box")
             start_box = str(start_box)
@@ -406,14 +482,15 @@ def parsing_response_to_pyautogui_code(responses, image_height: int, image_width
                     pyautogui_code += f"\npyautogui.click({x}, {y}, button='right')"
                 elif action_type == "hover":
                     pyautogui_code += f"\npyautogui.moveTo({x}, {y})"
-        
+
         elif action_type in ["finished"]:
             pyautogui_code = f"DONE"
-        
+
         else:
             pyautogui_code += f"\n# Unrecognized action type: {action_type}"
 
     return pyautogui_code
+
 
 def add_box_token(input_string):
     # Step 1: Split the string into individual actions
@@ -424,14 +501,17 @@ def add_box_token(input_string):
         for action in actions:
             action = action.strip()
             # Step 2: Extract coordinates (start_box or end_box) using regex
-            coordinates = re.findall(r"(start_box|end_box)='\((\d+),\s*(\d+)\)'", action)
-            
+            coordinates = re.findall(
+                r"(start_box|end_box)='\((\d+),\s*(\d+)\)'", action)
+
             updated_action = action  # Start with the original action
             for coord_type, x, y in coordinates:
                 # Convert x and y to integers
-                updated_action = updated_action.replace(f"{coord_type}='({x},{y})'", f"{coord_type}='<|box_start|>({x},{y})<|box_end|>'")
+                updated_action = updated_action.replace(
+                    f"{coord_type}='({x},{y})'",
+                    f"{coord_type}='<|box_start|>({x},{y})<|box_end|>'")
             processed_actions.append(updated_action)
-        
+
         # Step 5: Reconstruct the final string
         final_string = suffix + "\n\n".join(processed_actions)
     else:

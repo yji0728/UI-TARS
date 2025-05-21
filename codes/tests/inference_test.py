@@ -1,3 +1,9 @@
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -7,27 +13,31 @@ from io import BytesIO
 from PIL import Image
 
 import math
-from utils import (
-    IMAGE_FACTOR,
-    MIN_PIXELS,
-    MAX_PIXELS,
-    MAX_RATIO
-)
+
+from ui_tars.action_parser import IMAGE_FACTOR, MIN_PIXELS, MAX_PIXELS, MAX_RATIO
+
 
 def round_by_factor(number: int, factor: int) -> int:
     """Returns the closest integer to 'number' that is divisible by 'factor'."""
     return round(number / factor) * factor
 
+
 def ceil_by_factor(number: int, factor: int) -> int:
     """Returns the smallest integer greater than or equal to 'number' that is divisible by 'factor'."""
     return math.ceil(number / factor) * factor
+
 
 def floor_by_factor(number: int, factor: int) -> int:
     """Returns the largest integer less than or equal to 'number' that is divisible by 'factor'."""
     return math.floor(number / factor) * factor
 
+
 def smart_resize(
-    height: int, width: int, factor: int = IMAGE_FACTOR, min_pixels: int = MIN_PIXELS, max_pixels: int = MAX_PIXELS
+    height: int,
+    width: int,
+    factor: int = IMAGE_FACTOR,
+    min_pixels: int = MIN_PIXELS,
+    max_pixels: int = MAX_PIXELS,
 ) -> tuple[int, int]:
     """
     Rescales the image so that the following conditions are met:
@@ -54,6 +64,7 @@ def smart_resize(
         w_bar = ceil_by_factor(width * beta, factor)
     return h_bar, w_bar
 
+
 if __name__ == '__main__':
 
     # Assume model output
@@ -71,13 +82,18 @@ if __name__ == '__main__':
 
     # Calculate the new dimensions
     new_height, new_width = smart_resize(height, width)
-    new_coordinate = (int(model_output_width/new_width * width), int(model_output_height/new_height * height))
+    new_coordinate = (
+        int(model_output_width / new_width * width),
+        int(model_output_height / new_height * height),
+    )
     print(f'Resized dimensions: {new_width}, {new_height}')
     print(new_coordinate)
 
     # Display the image
     plt.imshow(img)
-    plt.scatter([new_coordinate[0]], [new_coordinate[1]], c='red', s=50)  # Mark the point with a red dot
+    plt.scatter(
+        [new_coordinate[0]], [new_coordinate[1]], c='red', s=50
+    )  # Mark the point with a red dot
     plt.title('Visualize Coordinate')
     plt.axis('off')  # Set to 'off' to hide the axes
     plt.savefig('./data/coordinate_process_image_som.png', dpi=350)
