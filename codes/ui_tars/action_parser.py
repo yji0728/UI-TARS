@@ -193,7 +193,7 @@ def parse_action_to_structure_output(text,
     assert "Action:" in text
     action_str = text.split("Action: ")[-1]
 
-    tmp_all_action = action_str.split("')\n\n")
+    tmp_all_action = action_str.split(")\n\n")
     all_action = []
     for action_str in tmp_all_action:
         if "type(content" in action_str:
@@ -204,11 +204,16 @@ def parse_action_to_structure_output(text,
 
             # 使用正则表达式进行替换
             pattern = r"type\(content='(.*?)'\)"  # 匹配 type(content='...')
-            content = re.sub(pattern, escape_quotes, action_str)
+            if re.search(pattern, action_str):  # 检查是否有匹配项
+                content = re.sub(pattern, escape_quotes, action_str)
+            else:
+                raise ValueError("Pattern not found in the input string.")
 
             # 处理字符串
             action_str = escape_single_quotes(content)
             action_str = "type(content='" + action_str + "')"
+        if not action_str.strip().endswith(")"):
+            action_str = action_str.strip() + ")"
         all_action.append(action_str)
 
     parsed_actions = [
