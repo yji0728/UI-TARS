@@ -1,3 +1,9 @@
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -7,6 +13,7 @@ from io import BytesIO
 from PIL import Image
 
 import math
+
 from ui_tars.action_parser import IMAGE_FACTOR, MIN_PIXELS, MAX_PIXELS, MAX_RATIO
 
 

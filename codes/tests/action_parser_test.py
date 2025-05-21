@@ -1,4 +1,10 @@
 import unittest
+
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from ui_tars.action_parser import (
     parsing_response_to_pyautogui_code,
     parse_action,

@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         working-directory: codes
         run: |
-          python -m pip install --upgrade pip uv hatch
+          python -m pip install --upgrade pip uv hatch Pillow
           uv sync
       - name: Run unit tests
         working-directory: codes
