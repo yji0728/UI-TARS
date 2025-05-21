@@ -16,7 +16,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.envs.test.scripts]
 test = "python -m unittest discover tests '*_test.py'"
-publish = "python -m unittest discover tests '*_test.py' && uv publish"
+publish = "python -m unittest discover tests '*_test.py' && uv build && uv publish"
 
 [tool.black]
 line-length = 88
