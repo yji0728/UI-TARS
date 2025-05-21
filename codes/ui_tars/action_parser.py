@@ -197,6 +197,8 @@ def parse_action_to_structure_output(text,
     all_action = []
     for action_str in tmp_all_action:
         if "type(content" in action_str:
+            if not action_str.strip().endswith(")"):
+                action_str = action_str.strip() + ")"
             # 正则表达式匹配 content 中的字符串并转义单引号
             def escape_quotes(match):
                 content = match.group(1)  # 获取 content 的值
