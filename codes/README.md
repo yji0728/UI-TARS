@@ -1,14 +1,14 @@
 # ui-tars
 
-A python package for parsing LLM-generated GUI action instructions, automatically generating pyautogui scripts, and supporting coordinate conversion and smart image resizing.
+A python package for parsing VLM-generated GUI action instructions into executable pyautogui codes.
 
 ---
 
 ## Introduction
 
-`ui-tars` is a Python package for parsing LLM-generated GUI action instructions, automatically generating pyautogui scripts, and supporting coordinate conversion and smart image resizing.
+`ui-tars` is a Python package for parsing VLM-generated GUI action instructions, automatically generating pyautogui scripts, and supporting coordinate conversion and smart image resizing.
 
-- Supports multiple LLM output formats (e.g., Qwen, Doubao)
+- Supports multiple VLM output formats (e.g., Qwen-VL, Seed-VL)
 - Automatically handles coordinate scaling and format conversion
 - One-click generation of pyautogui automation scripts
 
@@ -24,12 +24,12 @@ pip install ui-tars
 uv pip install ui-tars
 ```
 
-### Parse LLM output into structured actions
+### Parse output into structured actions
 
 ```python
-from ui_tars.action_parser import parse_action_to_structure_output
+from ui_tars.action_parser import parse_action_to_structure_output, parsing_response_to_pyautogui_code
 
-response = "Thought: Click the button\nAction: click(start_box='(0.1,0.2,0.1,0.2)')"
+response = "Thought: Click the button\nAction: click(point='<point>200 300</point>')"
 original_image_width, original_image_height = 1920, 1080
 parsed_dict = parse_action_to_structure_output(
     response,
@@ -39,6 +39,12 @@ parsed_dict = parse_action_to_structure_output(
     model_type="doubao"
 )
 print(parsed_dict)
+parsed_pyautogui_code = parsing_response_to_pyautogui_code(
+    responses=parsed_dict,
+    image_height=original_image_height,
+    image_width=original_image_width
+)
+print(parsed_pyautogui_code)
 ```
 
 ### Generate pyautogui automation script
@@ -90,10 +96,10 @@ def parse_action_to_structure_output(
 ```
 
 **Description:**
-Parses LLM output action instructions into structured dictionaries, automatically handling coordinate scaling and box/point format conversion.
+Parses output action instructions into structured dictionaries, automatically handling coordinate scaling and box/point format conversion.
 
 **Parameters:**
-- `text`: The LLM output string
+- `text`: The output string
 - `factor`: Scaling factor
 - `origin_resized_height`/`origin_resized_width`: Original image height/width
 - `model_type`: Model type (e.g., "qwen25vl", "doubao")

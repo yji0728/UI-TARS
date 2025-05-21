@@ -14,15 +14,15 @@ from ui_tars.action_parser import (
 
 class TestActionParser(unittest.TestCase):
     def test_parse_action(self):
-        action_str = "click(start_box='(10,20,30,40)')"
+        action_str = "click(point='<point>200 300</point>')"
         result = parse_action(action_str)
         self.assertEqual(result['function'], 'click')
-        self.assertEqual(result['args']['start_box'], '(10,20,30,40)')
+        self.assertEqual(result['args']['point'], '<point>200 300</point>')
 
     def test_parse_action_to_structure_output(self):
-        text = "Thought: test\nAction: click(start_box='(10,20,30,40)')"
+        text = "Thought: test\nAction: click(point='<point>200 300</point>')"
         actions = parse_action_to_structure_output(
-            text, factor=28, origin_resized_height=224, origin_resized_width=224
+            text, factor=1000, origin_resized_height=224, origin_resized_width=224
         )
         self.assertEqual(actions[0]['action_type'], 'click')
         self.assertIn('start_box', actions[0]['action_inputs'])
