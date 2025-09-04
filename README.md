@@ -18,6 +18,7 @@ We also offer a **UI-TARS-desktop** version, which can operate on your **local p
 **❗Notes**: Since Qwen 2.5vl based models ultilizes absolute coordinates to ground objects, please kindly refer to our illustration about how to process coordinates in this <a href="README_coordinates.md">guide</a>.
 
 ## Updates
+- 🌟 2025.09.04: We’re excited to announce the release the **UI-TARS-2**, which is a major upgrade from UI-TARS-1.5, featuring with enhanced capabilities in GUI, Game, Code and Tool Use. It is an "All In One" Agent model, enabling seamless integration of multiple abilities for complex tasks. Please check our new [technical report](https://arxiv.org/abs/2509.02544) for more details. Refer to more fantastic showcases at our [website](https://seed-tars.com/showcase/ui-tars-2/).
 - 🌟 2025.04.16: We shared the latest progress of the UI-TARS-1.5 model in our [blog](https://seed-tars.com/1.5), which excels in playing games and performing GUI tasks, and we open-sourced the [UI-TARS-1.5-7B](https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B).
 - ✨ 2025.03.23: We updated the OSWorld inference scripts from the original official [OSWorld repository](https://github.com/xlang-ai/OSWorld/blob/main/run_uitars.py). Now, you can use the OSWorld official inference scripts to reproduce our results.
 
