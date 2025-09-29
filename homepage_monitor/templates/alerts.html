@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}알림 - 홈페이지 위변조 탐지 시스템{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5><i class="fas fa-exclamation-triangle"></i> 위변조 탐지 알림</h5>
+        <span class="badge bg-danger">{{ alerts|length }}개 알림</span>
+    </div>
+    <div class="card-body">
+        {% if alerts %}
+            {% for alert in alerts %}
+            <div class="alert alert-danger">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6 class="mb-2">
+                            <i class="fas fa-exclamation-circle"></i> {{ alert.site_name }}
+                        </h6>
+                        <p class="mb-1">
+                            <strong>URL:</strong> 
+                            <a href="{{ alert.site_url }}" target="_blank">{{ alert.site_url }}</a>
+                        </p>
+                        <p class="mb-1">
+                            <strong>탐지 시간:</strong> {{ alert.timestamp[:19].replace('T', ' ') }}
+                        </p>
+                        <p class="mb-1">
+                            <strong>유사도:</strong> 
+                            <span class="badge bg-{{ 'danger' if alert.similarity_score < 0.5 else 'warning' }}">
+                                {{ "%.1f" | format(alert.similarity_score * 100) }}%
+                            </span>
+                        </p>
+                        {% if alert.similarity_score < 0.5 %}
+                        <div class="alert alert-sm alert-danger mb-0 mt-2">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            <strong>심각한 변경 감지!</strong> 즉시 확인이 필요합니다.
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-outline-primary" onclick="viewScreenshot('{{ alert.screenshot_path }}')">
+                                <i class="fas fa-image"></i> 스크린샷 보기
+                            </button>
+                            <a href="{{ url_for('check_site', site_id=alert.site_id) }}" class="btn btn-outline-success">
+                                <i class="fas fa-sync"></i> 재검사
+                            </a>
+                            <a href="{{ url_for('set_baseline', site_id=alert.site_id) }}" class="btn btn-outline-warning">
+                                <i class="fas fa-camera"></i> 새 기준 설정
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                <h4>모든 사이트가 안전합니다</h4>
+                <p class="text-muted">위변조가 탐지된 사이트가 없습니다.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">
+                    <i class="fas fa-tachometer-alt"></i> 대시보드로 돌아가기
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if alerts %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h6><i class="fas fa-info-circle"></i> 알림 해석 가이드</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="badge bg-danger p-2">0-50%</span>
+                    <h6 class="mt-2">심각한 변경</h6>
+                    <small class="text-muted">페이지 구조나 주요 콘텐츠에 큰 변화 발생</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="badge bg-warning p-2">50-80%</span>
+                    <h6 class="mt-2">중간 변경</h6>
+                    <small class="text-muted">일부 콘텐츠나 레이아웃 변경 감지</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <span class="badge bg-success p-2">80-100%</span>
+                    <h6 class="mt-2">미세한 변경</h6>
+                    <small class="text-muted">날짜, 시간 등 동적 콘텐츠 변경</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Screenshot Modal -->
+<div class="modal fade" id="screenshotModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">스크린샷</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="screenshotImage" class="img-fluid" alt="스크린샷">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function viewScreenshot(path) {
+    // This would need to be implemented to show the screenshot
+    // For now, show a placeholder
+    document.getElementById('screenshotImage').src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuqzvedtgeuwlCDrqqHsm6zsnZgg67Oj7Iq17J247JeQIOydtOuvuOyngOrwgCDtj5zsosedwvc=';
+    new bootstrap.Modal(document.getElementById('screenshotModal')).show();
+}
+</script>
+{% endblock %}
