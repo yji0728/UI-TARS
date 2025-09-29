@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}대시보드 - 홈페이지 위변조 탐지 시스템{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-globe"></i> 모니터링 사이트</h5>
+                <a href="{{ url_for('add_site') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> 사이트 추가
+                </a>
+            </div>
+            <div class="card-body">
+                {% if sites %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>URL</th>
+                                    <th>상태</th>
+                                    <th>마지막 검사</th>
+                                    <th>작업</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for site_id, site in sites.items() %}
+                                <tr>
+                                    <td>{{ site.name }}</td>
+                                    <td>
+                                        <a href="{{ site.url }}" target="_blank" class="text-decoration-none">
+                                            {{ site.url[:50] }}{% if site.url|length > 50 %}...{% endif %}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if site.status == 'active' %}
+                                            <span class="badge bg-success">활성</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">비활성</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if site.last_check %}
+                                            {{ site.last_check[:19].replace('T', ' ') }}
+                                        {% else %}
+                                            <span class="text-muted">미검사</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ url_for('check_site', site_id=site_id) }}" 
+                                               class="btn btn-outline-primary" title="검사">
+                                                <i class="fas fa-search"></i>
+                                            </a>
+                                            <a href="{{ url_for('set_baseline', site_id=site_id) }}" 
+                                               class="btn btn-outline-warning" title="기준 설정">
+                                                <i class="fas fa-camera"></i>
+                                            </a>
+                                            <a href="{{ url_for('remove_site', site_id=site_id) }}" 
+                                               class="btn btn-outline-danger" title="삭제"
+                                               onclick="return confirm('정말로 이 사이트를 삭제하시겠습니까?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-globe fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">모니터링할 사이트가 없습니다.</p>
+                        <a href="{{ url_for('add_site') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> 첫 번째 사이트 추가
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-exclamation-triangle"></i> 최근 알림</h5>
+            </div>
+            <div class="card-body">
+                {% if alerts %}
+                    {% for alert in alerts %}
+                    <div class="alert alert-danger alert-sm mb-2">
+                        <strong>{{ alert.site_name }}</strong><br>
+                        <small>{{ alert.timestamp[:19].replace('T', ' ') }}</small><br>
+                        <small>유사도: {{ "%.1f" | format(alert.similarity_score * 100) }}%</small>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <a href="{{ url_for('alerts') }}" class="btn btn-outline-primary btn-sm">
+                            모든 알림 보기
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="text-center py-3">
+                        <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                        <p class="text-muted mb-0">모든 사이트가 안전합니다</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar"></i> 통계</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-primary">{{ sites|length }}</h4>
+                            <small class="text-muted">모니터링 사이트</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-danger">{{ alerts|length }}</h4>
+                        <small class="text-muted">총 알림</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> UI-TARS 기반 홈페이지 위변조 탐지</h5>
+            </div>
+            <div class="card-body">
+                <p>이 시스템은 <strong>UI-TARS</strong>의 GUI 자동화 기능을 활용하여 웹사이트의 변경사항을 자동으로 탐지합니다.</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-camera fa-2x text-primary mb-2"></i>
+                            <h6>자동 스크린샷</h6>
+                            <small class="text-muted">정기적으로 웹페이지 캡처</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-search fa-2x text-success mb-2"></i>
+                            <h6>이미지 비교</h6>
+                            <small class="text-muted">기준 이미지와 실시간 비교</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                            <h6>실시간 알림</h6>
+                            <small class="text-muted">변경 즉시 알림 발송</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line fa-2x text-info mb-2"></i>
+                            <h6>분석 보고서</h6>
+                            <small class="text-muted">상세한 변경 분석 제공</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
